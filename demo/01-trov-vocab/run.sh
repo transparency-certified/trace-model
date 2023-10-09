@@ -5,7 +5,7 @@ GEIST_TEMPLATES=templates.geist
 
 # ------------------------------------------------------------------------------
 
-bash_cell 'reload trov vocabulary without inferences' << END_CELL
+bash_cell 'load trov vocabulary without inferences' << END_CELL
 
 # Destroy the dataset
 geist destroy --dataset kb --quiet
