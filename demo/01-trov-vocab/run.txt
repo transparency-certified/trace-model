@@ -1,4 +1,4 @@
-====================================== bash cell | load trov vocabulary without inferences =======================================
+======================================= bash cell | load trov vocabulary without inferences ========================================
 
 # Destroy the dataset
 geist destroy --dataset kb --quiet
