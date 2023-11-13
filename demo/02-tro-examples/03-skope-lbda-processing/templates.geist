@@ -30,28 +30,73 @@
     {{ tail }} -> {{ head }} [label="{{ label }}"]
 {% endtemplate %}
 
-{% template query_tro_trs_str %}
-    {%- query isfilepath=False as query_tro_trs_str%}
-        SELECT DISTINCT ?tro ?trs
+{% template query_tro_str %}
+    {%- query isfilepath=False as query_tro_str %}
+        SELECT ?tro_name (STR(?tro) AS ?tro_id) ?tro_descr (COUNT(DISTINCT ?artifact) AS ?num_of_artifacts) (COUNT(DISTINCT ?arrangement) AS ?num_of_arrs) (COUNT(DISTINCT ?trp) AS ?num_of_trps)
         WHERE {
-            ?tro    rdf:type    trov:TransparentResearchObject .
-            ?tro    trov:wasAssembledBy ?trs .
-            ?trs    rdf:type    trov:TrustedResearchSystem .
-        }
-        ORDER BY ?tro ?trs
+            ?tro            rdf:type    trov:TransparentResearchObject .
+            ?tro            rdfs:label  ?tro_name .
+            ?tro            rdfs:comment    ?tro_descr .
+            ?tro            trov:hasComposition/trov:hasArtifact   ?artifact .
+            ?tro            trov:hasArrangement     ?arrangement .
+            ?tro            trov:hasPerformance     ?trp .
+        } GROUP BY ?tro
     {% endquery %}
-    {{ query_tro_trs_str }}
+    {{ query_tro_str }}
+{% endtemplate %}
+
+{% template query_artifacts_by_arrangement_str arrangement %}
+    {%- query isfilepath=False as query_artifacts_by_arrangement_str %}
+        SELECT DISTINCT ?name (STR(?artifact) AS ?id) ?location
+        WHERE {
+            {{ arrangement }}   trov:hasLocus   ?locus .
+            ?locus              rdfs:label      ?name .
+            ?locus              trov:hasArtifact    ?artifact .
+            ?locus              trov:hasLocation    ?location .
+        }
+        ORDER BY ?artifact
+    {% endquery %}
+    {{ query_artifacts_by_arrangement_str }}
+{% endtemplate %}
+
+{% template query_artifact_str %}
+    {%- query isfilepath=False as query_artifact_str %}
+        SELECT DISTINCT ?name (STR(?artifact) AS ?id) ?mimeType ?description
+        WHERE {
+            ?tro          rdf:type      trov:TransparentResearchObject .
+            ?tro          trov:hasComposition/trov:hasArtifact   ?artifact .
+            ?artifact     rdfs:label    ?name .
+            ?artifact     trov:mimeType ?mimeType .
+            ?artifact     rdfs:comment  ?description .
+        }
+        ORDER BY ?artifact
+    {% endquery %}
+    {{ query_artifact_str }}
+{% endtemplate %}
+
+{% template query_trs_str %}
+    {%- query isfilepath=False as query_trs_str %}
+        SELECT ?trs_name (STR(?trs) AS ?trs_id) ?trs_descr (COUNT(DISTINCT ?capability) AS ?num_of_capabilities)
+        WHERE {
+            ?trs        rdf:type        trov:TrustedResearchSystem .
+            ?trs        trov:hasCapability ?capability .
+            ?trs        rdfs:label      ?trs_name .
+            ?trs        rdfs:comment    ?trs_descr
+        } GROUP BY ?trs
+    {% endquery %}
+    {{ query_trs_str }}
 {% endtemplate %}
 
 {% template query_trs_capability_str %}
     {%- query isfilepath=False as query_trs_capability_str %}
-        SELECT DISTINCT ?trs ?capability_id ?capability_type
+        SELECT DISTINCT (STR(?capability) AS ?id) ?name ?description
         WHERE {
-            ?trs        rdf:type        trov:TrustedResearchSystem .
-            ?trs        trov:hasCapability ?capability_id .
-            ?capability_id  rdf:type    ?capability_type .
+            ?trs        rdf:type    trov:TrustedResearchSystem .
+            ?trs        trov:hasCapability ?capability .
+            ?capability rdfs:label  ?name .
+            ?capability rdfs:comment    ?description .
         }
-        ORDER BY ?trs ?capability_id ?capability_type
+        ORDER BY ?trs ?capability
     {% endquery %}
     {{ query_trs_capability_str }}
 {% endtemplate %}
@@ -67,34 +112,4 @@
         ORDER BY ?trp ?in ?out
     {% endquery %}
     {{ query_trp_str }}
-{% endtemplate %}
-
-{% template query_arrangement_str %}
-    {%- query isfilepath=False as query_arrangement_str %}
-        SELECT DISTINCT ?arrangement ?artifact
-        WHERE {
-            ?tro          rdf:type    trov:TransparentResearchObject .
-            ?tro          trov:hasArrangement ?arrangement .
-            ?arrangement  trov:hasLocus ?locus .
-            ?locus        trov:hasArtifact ?artifact .
-        }
-        ORDER BY ?arrangement ?artifact
-    {% endquery %}
-    {{ query_arrangement_str }}
-{% endtemplate %}
-
-{% template query_artifact_str %}
-    {%- query isfilepath=False as query_artifact_str %}
-        SELECT DISTINCT ?artifact ?type ?comment ?mimeType ?sha256 ?composition
-        WHERE {
-            ?composition  rdf:type    trov:ArtifactComposition .
-            ?composition  trov:hasArtifact ?artifact .
-            ?artifact     rdf:type    ?type .
-            ?artifact     rdfs:comment ?comment .
-            ?artifact     trov:mimeType ?mimeType .
-            ?artifact     trov:sha256 ?sha256 .
-        }
-        ORDER BY ?artifact
-    {% endquery %}
-    {{ query_artifact_str }}
 {% endtemplate %}

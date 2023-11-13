@@ -246,41 +246,46 @@ geist destroy --dataset kb
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-================================================== bash cell | tro_report_inline ===================================================
+====================================================== bash cell | tro_report ======================================================
 
-geist report --outputroot report_inline << END_TEMPLATE
+geist report --outputroot products << END_TEMPLATE
 
 {%- use "templates.geist" %}
 {%- create %} tro/tro.jsonld {% endcreate %}
-
-{%- html "overall_tro_graph.html" %}
-{%- head "Overall TRO Graph" %}
-
-    <body>
-        <h1>Overall TRO Graph</h1>
-        {%- graph dataset="kb", rankdir="LR", mappings="mappings.json" as tro_graph %}
-        {% img src="tro.svg" %} {{ tro_graph }} {% endimg %}
-    </body>
-
-{% endhtml %} 
 
 {%- html "report.html" %}
 {%- head "TRO Report" %}
 
     <body>
         <h1>TRO Report</h1>
-        <p>This report shows the TRO of downloading LBDA dataset from NOAA website and preparing for use by researchers employing the SKOPE application.
-        <h3>1. The TRO was assembled by what TRS?</h3>
-        {%- table mappings="mappings.json" %}
-            {% query_tro_trs_str %}
-        {% endtable %}
-        
-        <h3>2. What capabilities does the TRS have?</h3>
-        {%- table mappings="mappings.json" %}
-            {% query_trs_capability_str %}
-        {% endtable %}
+        <h3>This Transparent Research Object:</h3>
+        {%- map isfilepath=False, mappings="mappings.json" as query_tro_shorten %} {% query_tro_str %} {% endmap %}
+        {%- set query_tro = query_tro_shorten | json2df %}
+        {% for _, row in query_tro.iterrows() %}
+        <u>{{ row["tro_name"][1:-1] }}</u>
+        <ul>
+            <li>TRO ID: {{ row["tro_id"][1:-1] }}</li>
+            <li>TRO Description: {{ row["tro_descr"][1:-1] }}</li>
+            <li>Digital artifacts: {{ row["num_of_artifacts"][1:-1] }}</li>
+            <li>Artifact artifact arrangements: {{ row["num_of_arrs"][1:-1] }}</li>
+            <li>Trusted Research Performances (TRPs): {{ row["num_of_trps"][1:-1] }}</li>
+        </ul>
+        {% endfor %}
 
-        <h3>3. What TRPs does the TRO have? What arrangements are accessed and contributed to per TRP accordingly?</h3>
+        <h3>Trusted Research System:</h3>
+        {%- map isfilepath=False, mappings="mappings.json" as query_trs_shorten %} {% query_trs_str %} {% endmap %}
+        {%- set query_trs = query_trs_shorten | json2df %}
+        {% for _, row in query_trs.iterrows() %}
+        <u>{{ row["trs_name"][1:-1] }}</u>
+        <ul>
+            <li>TRS ID: {{ row["trs_id"][1:-1] }}</li>
+            <li>TRS Description: {{ row["trs_descr"][1:-1] }}</li>
+            <li>Capabilities: {{ row["num_of_capabilities"][1:-1] }} (see below)</li>
+        </ul>
+        {% endfor %}
+        {%- table mappings="mappings.json" %}{% query_trs_capability_str %}{% endtable %}
+
+        <h3>Trusted Research Performances (TRPs) and Arrangements:</h3>
         {% img src="trp.svg" %}
             {%- gv_graph "trp", "LR" %}
             nodesep=0.6
@@ -293,27 +298,31 @@ geist report --outputroot report_inline << END_TEMPLATE
             {% gv_end %}
         {% endimg %}
 
-        <h3>4. What artifacts are included in each arrangement?</h3>
-        {% img src="arrangement.svg" %}
-            {%- gv_graph "arrangement", "LR" %}
-            nodesep=0.6
-            node[shape=box style="filled, rounded" fillcolor="#b3e2cd" peripheries=1 fontname=Courier]
-            {%- map isfilepath=False, mappings="mappings.json" as query_arrangement_shorten %} {% query_arrangement_str %} {% endmap %}
-            {%- set query_arrangement = query_arrangement_shorten | json2df %}
-            {% for _, row in query_arrangement.iterrows() %}
-                {% gv_edge row["arrangement"], row["artifact"] %}
-            {% endfor %}
-            {% gv_end %}
-        {% endimg %}
+        <h3>Artifacts by Arrangement:</h3>
+        {%- query isfilepath=False as query_arrangement_str %}
+            SELECT DISTINCT ?arrangement (STR(?arrangement) AS ?id) ?name ?descr
+            WHERE {
+                ?tro          rdf:type    trov:TransparentResearchObject .
+                ?tro          trov:hasArrangement ?arrangement .
+                ?arrangement  rdfs:label    ?name .
+                ?arrangement  rdfs:comment  ?descr .
+            }
+            ORDER BY ?arrangement
+        {% endquery %}
+        {%- set query_arrangement = query_arrangement_str | json2df %}
+        {%- map isfilepath=False, mappings="mappings.json" as query_arrangement_shorten_str %} {{ query_arrangement_str }} {% endmap %}
+        {%- set query_arrangement_shorten = query_arrangement_shorten_str | json2df %}
+        {% for idx, row in query_arrangement_shorten.iterrows() %}
+        <u>{{ row["name"][1:-1] }}</u>
+        <ul>
+            <li>Arrangement ID: {{ row["id"][1:-1] }}</li>
+            <li>Arrangement Description: {{ row["descr"][1:-1] }}</li>
+            <li>Digital artifacts: {%- table mappings="mappings.json" %}{% query_artifacts_by_arrangement_str query_arrangement.loc[idx, "arrangement"] %}{% endtable %}</li>
+        </ul>
+        {% endfor %}
 
-        <h3>5. What are the type, comment, mimeType, and sha256 of each artifact? Which composition does it belong to?</h3>
-        {%- table mappings="mappings.json" %}
-            {% query_artifact_str %}
-        {% endtable %}
-
-        <h3>6. Overall graph</h3>
-        <a href="overall_tro_graph.html">Zoom in the graph</a>
-        <img src="tro.svg" width="100%">
+        <h3>Artifacts:</h3>
+        {%- table mappings="mappings.json" %}{% query_artifact_str %}{% endtable %}
 
 </body>
 {% endhtml %}
@@ -337,151 +346,104 @@ END_TEMPLATE
                 border-collapse: collapse;
             }
         </style>
-        <title>Overall TRO Graph</title>
-    </head>
-    <body>
-        <h1>Overall TRO Graph</h1>        <img src="tro.svg" >    </body>
-
-</html>
-
-<!DOCTYPE html>
-<html>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body { margin: 3%; }
-            table, th, tr, td {
-                border:1px solid #69899F;
-                border-collapse: collapse;
-            }
-        </style>
         <title>TRO Report</title>
     </head>
     <body>
         <h1>TRO Report</h1>
-        <p>This report shows the TRO of downloading LBDA dataset from NOAA website and preparing for use by researchers employing the SKOPE application.
-        <h3>1. The TRO was assembled by what TRS?</h3>
-        <table>
-            <tr><th>tro</th><th>trs</th></tr>
+        <h3>This Transparent Research Object:</h3>                <u>Transparent Research Object Instance</u>
+        <ul>
+            <li>TRO ID: tro</li>
+            <li>TRO Description: Download LBDA dataset from NOAA website and prepare for use by researchers employing the SKOPE application</li>
+            <li>Digital artifacts: 6</li>
+            <li>Artifact artifact arrangements: 4</li>
+            <li>Trusted Research Performances (TRPs): 3</li>
+        </ul>
         
-			<tr><td>&lttro&gt</td><td>&lttrs&gt</td>
-        </table>
-            
-        <h3>2. What capabilities does the TRS have?</h3>
-        <table>
-            <tr><th>trs</th><th>capability_id</th><th>capability_type</th></tr>
+        <h3>Trusted Research System:</h3>                <u>Trusted Research System Instance</u>
+        <ul>
+            <li>TRS ID: trs</li>
+            <li>TRS Description: TRS that can monitor netowrk accesses or provide Internet isolation</li>
+            <li>Capabilities: 2 (see below)</li>
+        </ul>
         
-			<tr><td>&lttrs&gt</td><td>&lttrs/capability/1&gt</td><td>&lttrov:CanRecordInternetAccess&gt</td>
-			<tr><td>&lttrs&gt</td><td>&lttrs/capability/2&gt</td><td>&lttrov:CanProvideInternetIsolation&gt</td>
+        <table>
+            <tr><th>id</th><th>name</th><th>description</th></tr>
+        
+			<tr><td>"trs/capability/1"</td><td>"Capability of Recording Internet Access"</td><td>"TRS can record internet access"</td>
+			<tr><td>"trs/capability/2"</td><td>"Capability of Providing Internet Isolation"</td><td>"TRS can provide Internet isolation"</td>
         </table>
     
-        <h3>3. What TRPs does the TRO have? What arrangements are accessed and contributed to per TRP accordingly?</h3>
+        <h3>Trusted Research Performances (TRPs) and Arrangements:</h3>
         <img src="trp.svg" >
-        <h3>4. What artifacts are included in each arrangement?</h3>
-        <img src="arrangement.svg" >
-        <h3>5. What are the type, comment, mimeType, and sha256 of each artifact? Which composition does it belong to?</h3>
+        <h3>Artifacts by Arrangement:</h3>                <u>Web Resource Artifact Arrangement Instance</u>
+        <ul>
+            <li>Arrangement ID: arrangement/1</li>
+            <li>Arrangement Description: Arrangement describing location of LBDA NetCDF file on NOAA web server</li>
+            <li>Digital artifacts:
         <table>
-            <tr><th>artifact</th><th>type</th><th>comment</th><th>mimeType</th><th>sha256</th><th>composition</th></tr>
+            <tr><th>name</th><th>id</th><th>location</th></tr>
         
-			<tr><td>&ltcomposition/1/artifact/1&gt</td><td>&lttrov:DataArtifact&gt</td><td>"NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset"</td><td>"application/x-netcdf"</td><td>"b02edb8d27cf9ac19087938dd3d306895e208bd3a9f0458e63292ea2695a1f78"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/2&gt</td><td>&lttrov:ComputationalNotebookArtifact&gt</td><td>"Initial state of Jupyter notebook for processing the LBDA dataset"</td><td>"text/plain"</td><td>"8fcf663f1c40cbf846d0e5a136f0797fa560545f5d8c1391a5b13406f3814ad6"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/3&gt</td><td>&lttrov:ComputationalNotebookArtifact&gt</td><td>"Final state of Jupyter notebook for processing the LBDA dataset"</td><td>"text/plain"</td><td>"8cf4f26b27e83a967bd7ddd97a24e6d4b7a9a7a14fff7ffeb47e2fa9085bccaf"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/4&gt</td><td>&lttrov:HTMLArtifact&gt</td><td>"HTML rendering of final state of the Jupyter notebook"</td><td>"text/html"</td><td>"870c9297ae7439c283697761c90028312cc0312f13182afb0a0125eb29e5f7f0"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/5&gt</td><td>&lttrov:ImageArtifact&gt</td><td>"Graphical rendering of the histogram of dataset values"</td><td>"image/png"</td><td>"cfc6e4d5e76754d4802d42a2d6ff79a901c7f0e5daccb256cab542bb7953b2bf"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/6&gt</td><td>&lttrov:DataArtifact&gt</td><td>"GeoTIFF file containing LBDA data cube ready for staging to SKOPE server"</td><td>"image/tiff"</td><td>"e035f3af957c4f761c1d502cc28f91676fbf2bbdf5f7045a7151a6d3ff04789d"</td><td>&ltcomposition/1&gt</td>
+			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"</td>
+        </table>
+    </li>
+        </ul>
+                <u>Local File System Artifact Arrangement Instance</u>
+        <ul>
+            <li>Arrangement ID: arrangement/2</li>
+            <li>Arrangement Description: Arrangement on fileserver managed by TRS after downloading dataset and before running Jupyter notebook</li>
+            <li>Digital artifacts:
+        <table>
+            <tr><th>name</th><th>id</th><th>location</th></tr>
+        
+			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"data/lbda-v2_kddm_pmdi_2017.nc"</td>
+			<tr><td>"Initial Notebook"</td><td>"composition/1/artifact/2"</td><td>"analysis.ipynb"</td>
+        </table>
+    </li>
+        </ul>
+                <u>Local File System Artifact Arrangement Instance</u>
+        <ul>
+            <li>Arrangement ID: arrangement/3</li>
+            <li>Arrangement Description: Arrangement on fileserver managed by TRS after running Jupyter notebook</li>
+            <li>Digital artifacts:
+        <table>
+            <tr><th>name</th><th>id</th><th>location</th></tr>
+        
+			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"data/lbda-v2_kddm_pmdi_2017.nc"</td>
+			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"analysis.ipynb"</td>
+			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"output/analysis.html"</td>
+			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"output/histogram.png"</td>
+			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"output/lbda-v2_kddm_pmdi_2017.tiff"</td>
+        </table>
+    </li>
+        </ul>
+                <u>Zip Artifact Arrangement Instance</u>
+        <ul>
+            <li>Arrangement ID: arrangement/4</li>
+            <li>Arrangement Description: Arrangement of final products packaged in a Zip file</li>
+            <li>Digital artifacts:
+        <table>
+            <tr><th>name</th><th>id</th><th>location</th></tr>
+        
+			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"analysis.ipynb"</td>
+			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"analysis.html"</td>
+			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"histogram.png"</td>
+			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"lbda-v2_kddm_pmdi_2017.tiff"</td>
+        </table>
+    </li>
+        </ul>
+        
+        <h3>Artifacts:</h3>
+        <table>
+            <tr><th>name</th><th>id</th><th>mimeType</th><th>description</th></tr>
+        
+			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"application/x-netcdf"</td><td>"NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset"</td>
+			<tr><td>"Initial Notebook"</td><td>"composition/1/artifact/2"</td><td>"text/plain"</td><td>"Initial state of Jupyter notebook for processing the LBDA dataset"</td>
+			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"text/plain"</td><td>"Final state of Jupyter notebook for processing the LBDA dataset"</td>
+			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"text/html"</td><td>"HTML rendering of final state of the Jupyter notebook"</td>
+			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"image/png"</td><td>"Graphical rendering of the histogram of dataset values"</td>
+			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"image/tiff"</td><td>"GeoTIFF file containing LBDA data cube ready for staging to SKOPE server"</td>
         </table>
     
-        <h3>6. Overall graph</h3>
-        <a href="overall_tro_graph.html">Zoom in the graph</a>
-        <img src="tro.svg" width="100%">
-
-</body>
-</html>
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-=================================================== bash cell | tro_report_file ====================================================
-
-geist report --file tro_report --outputroot report_file
-
------------------------------------------------------------ cell outputs -----------------------------------------------------------
-
-<!DOCTYPE html>
-<html>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body { margin: 3%; }
-            table, th, tr, td {
-                border:1px solid #69899F;
-                border-collapse: collapse;
-            }
-        </style>
-        <title>Overall TRO Graph</title>
-    </head>
-<body>
-    <h1>Overall TRO Graph</h1>    <img src="tro.svg" ></body>
-
-</html>
-
-<!DOCTYPE html>
-<html>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            body { margin: 3%; }
-            table, th, tr, td {
-                border:1px solid #69899F;
-                border-collapse: collapse;
-            }
-        </style>
-        <title>TRO Report</title>
-    </head>
-    <body>
-        <h1>TRO Report</h1>
-        <p>This report shows the TRO of downloading LBDA dataset from NOAA website and preparing for use by researchers employing the SKOPE application.
-        <h3>1. The TRO was assembled by what TRS?</h3>
-        <table>
-            <tr><th>tro</th><th>trs</th></tr>
-        
-			<tr><td>&lttro&gt</td><td>&lttrs&gt</td>
-        </table>
-            
-        <h3>2. What capabilities does the TRS have?</h3>
-        <table>
-            <tr><th>trs</th><th>capability_id</th><th>capability_type</th></tr>
-        
-			<tr><td>&lttrs&gt</td><td>&lttrs/capability/1&gt</td><td>&lttrov:CanRecordInternetAccess&gt</td>
-			<tr><td>&lttrs&gt</td><td>&lttrs/capability/2&gt</td><td>&lttrov:CanProvideInternetIsolation&gt</td>
-        </table>
-    
-        <h3>3. What TRPs does the TRO have? What arrangements are accessed and contributed to per TRP accordingly?</h3>
-        <img src="trp.svg" >
-        <h3>4. What artifacts are included in each arrangement?</h3>
-        <img src="arrangement.svg" >
-        <h3>5. What are the type, comment, mimeType, and sha256 of each artifact? Which composition does it belong to?</h3>
-        <table>
-            <tr><th>artifact</th><th>type</th><th>comment</th><th>mimeType</th><th>sha256</th><th>composition</th></tr>
-        
-			<tr><td>&ltcomposition/1/artifact/1&gt</td><td>&lttrov:DataArtifact&gt</td><td>"NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset"</td><td>"application/x-netcdf"</td><td>"b02edb8d27cf9ac19087938dd3d306895e208bd3a9f0458e63292ea2695a1f78"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/2&gt</td><td>&lttrov:ComputationalNotebookArtifact&gt</td><td>"Initial state of Jupyter notebook for processing the LBDA dataset"</td><td>"text/plain"</td><td>"8fcf663f1c40cbf846d0e5a136f0797fa560545f5d8c1391a5b13406f3814ad6"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/3&gt</td><td>&lttrov:ComputationalNotebookArtifact&gt</td><td>"Final state of Jupyter notebook for processing the LBDA dataset"</td><td>"text/plain"</td><td>"8cf4f26b27e83a967bd7ddd97a24e6d4b7a9a7a14fff7ffeb47e2fa9085bccaf"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/4&gt</td><td>&lttrov:HTMLArtifact&gt</td><td>"HTML rendering of final state of the Jupyter notebook"</td><td>"text/html"</td><td>"870c9297ae7439c283697761c90028312cc0312f13182afb0a0125eb29e5f7f0"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/5&gt</td><td>&lttrov:ImageArtifact&gt</td><td>"Graphical rendering of the histogram of dataset values"</td><td>"image/png"</td><td>"cfc6e4d5e76754d4802d42a2d6ff79a901c7f0e5daccb256cab542bb7953b2bf"</td><td>&ltcomposition/1&gt</td>
-			<tr><td>&ltcomposition/1/artifact/6&gt</td><td>&lttrov:DataArtifact&gt</td><td>"GeoTIFF file containing LBDA data cube ready for staging to SKOPE server"</td><td>"image/tiff"</td><td>"e035f3af957c4f761c1d502cc28f91676fbf2bbdf5f7045a7151a6d3ff04789d"</td><td>&ltcomposition/1&gt</td>
-        </table>
-    
-        <h3>6. Overall graph</h3>
-        <a href="overall_tro_graph.html">Zoom in the graph</a>
-        <img src="tro.svg" width="100%">
-
 </body>
 </html>
 
