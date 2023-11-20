@@ -56,6 +56,9 @@ geist report --outputroot products << END_TEMPLATE
             {% gv_end %}
         {% endimg %}
 
+        <h3>Artifacts:</h3>
+        {%- table mappings="mappings.json" %}{% query_artifact_str %}{% endtable %}
+
         <h3>Artifacts by Arrangement:</h3>
         {%- query isfilepath=False as query_arrangement_str %}
             SELECT DISTINCT ?arrangement (STR(?arrangement) AS ?id) ?name ?descr
@@ -78,9 +81,6 @@ geist report --outputroot products << END_TEMPLATE
             <li>Digital artifacts: {%- table mappings="mappings.json" %}{% query_artifacts_by_arrangement_str row["arrangement"] %}{% endtable %}</li>
         </ul>
         {% endfor %}
-
-        <h3>Artifacts:</h3>
-        {%- table mappings="mappings.json" %}{% query_artifact_str %}{% endtable %}
 
 </body>
 {% endhtml %}
