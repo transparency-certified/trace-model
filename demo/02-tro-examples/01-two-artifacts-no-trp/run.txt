@@ -209,9 +209,9 @@ geist query --dataset kb << __END_QUERY__
 __END_QUERY__
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
-|    | attribute                                                  | attributeLabel         | attributeComment                                                        |
-|---:|:-----------------------------------------------------------|:-----------------------|:------------------------------------------------------------------------|
-|  0 | <https://w3id.org/trace/2023/05/trov#IncludesAllInputData> | "IncludesAllInputData" | "TRO composition includes all input data employed in creating the TRO." |
+|    | attribute                                                  | attributeLabel       | attributeComment                                                      |
+|---:|:-----------------------------------------------------------|:---------------------|:----------------------------------------------------------------------|
+|  0 | <https://w3id.org/trace/2023/05/trov#IncludesAllInputData> | IncludesAllInputData | TRO composition includes all input data employed in creating the TRO. |
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -237,12 +237,12 @@ __END_QUERY__
 geist destroy --dataset kb
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
-|    | attribute                                                         | attributeLabel                | attributeComment                                                |
-|---:|:------------------------------------------------------------------|:------------------------------|:----------------------------------------------------------------|
-|  0 | <https://w3id.org/trace/2023/05/trov#CanProvideInternetIsolation> | "CanProvideInternetIsolation" | "The capability to prevent Internet access during a TRP."       |
-|  1 | <https://w3id.org/trace/2023/05/trov#EnforcesInternetIsolation>   | "EnforcesInternetIsolation"   | "The policy of always preventing Internet access during a TRP." |
-|  2 | <https://w3id.org/trace/2023/05/trov#TRSCapability>               | "TRSCapability"               | "A capability of a TRS."                                        |
-|  3 | <https://w3id.org/trace/2023/05/trov#TRSPolicy>                   | "TRSPolicy"                   | "A policy always enforced by a particular TRS."                 |
+|    | attribute                                                         | attributeLabel              | attributeComment                                              |
+|---:|:------------------------------------------------------------------|:----------------------------|:--------------------------------------------------------------|
+|  0 | <https://w3id.org/trace/2023/05/trov#CanProvideInternetIsolation> | CanProvideInternetIsolation | The capability to prevent Internet access during a TRP.       |
+|  1 | <https://w3id.org/trace/2023/05/trov#EnforcesInternetIsolation>   | EnforcesInternetIsolation   | The policy of always preventing Internet access during a TRP. |
+|  2 | <https://w3id.org/trace/2023/05/trov#TRSCapability>               | TRSCapability               | A capability of a TRS.                                        |
+|  3 | <https://w3id.org/trace/2023/05/trov#TRSPolicy>                   | TRSPolicy                   | A policy always enforced by a particular TRS.                 |
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

@@ -209,9 +209,9 @@ geist query --dataset kb << __END_QUERY__
 __END_QUERY__
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
-|    | attribute                                                  | attributeLabel         | attributeComment                                                        |
-|---:|:-----------------------------------------------------------|:-----------------------|:------------------------------------------------------------------------|
-|  0 | <https://w3id.org/trace/2023/05/trov#IncludesAllInputData> | "IncludesAllInputData" | "TRO composition includes all input data employed in creating the TRO." |
+|    | attribute                                                  | attributeLabel       | attributeComment                                                      |
+|---:|:-----------------------------------------------------------|:---------------------|:----------------------------------------------------------------------|
+|  0 | <https://w3id.org/trace/2023/05/trov#IncludesAllInputData> | IncludesAllInputData | TRO composition includes all input data employed in creating the TRO. |
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -237,12 +237,12 @@ __END_QUERY__
 geist destroy --dataset kb
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
-|    | attribute                                                         | attributeLabel                | attributeComment                                                |
-|---:|:------------------------------------------------------------------|:------------------------------|:----------------------------------------------------------------|
-|  0 | <https://w3id.org/trace/2023/05/trov#CanProvideInternetIsolation> | "CanProvideInternetIsolation" | "The capability to prevent Internet access during a TRP."       |
-|  1 | <https://w3id.org/trace/2023/05/trov#EnforcesInternetIsolation>   | "EnforcesInternetIsolation"   | "The policy of always preventing Internet access during a TRP." |
-|  2 | <https://w3id.org/trace/2023/05/trov#TRSCapability>               | "TRSCapability"               | "A capability of a TRS."                                        |
-|  3 | <https://w3id.org/trace/2023/05/trov#TRSPolicy>                   | "TRSPolicy"                   | "A policy always enforced by a particular TRS."                 |
+|    | attribute                                                         | attributeLabel              | attributeComment                                              |
+|---:|:------------------------------------------------------------------|:----------------------------|:--------------------------------------------------------------|
+|  0 | <https://w3id.org/trace/2023/05/trov#CanProvideInternetIsolation> | CanProvideInternetIsolation | The capability to prevent Internet access during a TRP.       |
+|  1 | <https://w3id.org/trace/2023/05/trov#EnforcesInternetIsolation>   | EnforcesInternetIsolation   | The policy of always preventing Internet access during a TRP. |
+|  2 | <https://w3id.org/trace/2023/05/trov#TRSCapability>               | TRSCapability               | A capability of a TRS.                                        |
+|  3 | <https://w3id.org/trace/2023/05/trov#TRSPolicy>                   | TRSPolicy                   | A policy always enforced by a particular TRS.                 |
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -262,13 +262,13 @@ geist report --outputroot products << END_TEMPLATE
         {%- map isfilepath=False, mappings="mappings.json" as query_tro_shorten %} {% query_tro_str %} {% endmap %}
         {%- set query_tro = query_tro_shorten | json2df %}
         {% for _, row in query_tro.iterrows() %}
-        <u>{{ row["tro_name"][1:-1] }}</u>
+        <u>{{ row["tro_name"] }}</u>
         <ul>
-            <li>TRO ID: {{ row["tro_id"][1:-1] }}</li>
-            <li>TRO Description: {{ row["tro_descr"][1:-1] }}</li>
-            <li>Digital artifacts: {{ row["num_of_artifacts"][1:-1] }}</li>
-            <li>Artifact artifact arrangements: {{ row["num_of_arrs"][1:-1] }}</li>
-            <li>Trusted Research Performances (TRPs): {{ row["num_of_trps"][1:-1] }}</li>
+            <li>TRO ID: {{ row["tro_id"] }}</li>
+            <li>TRO Description: {{ row["tro_descr"] }}</li>
+            <li>Digital artifacts: {{ row["num_of_artifacts"] }}</li>
+            <li>Artifact artifact arrangements: {{ row["num_of_arrs"] }}</li>
+            <li>Trusted Research Performances (TRPs): {{ row["num_of_trps"] }}</li>
         </ul>
         {% endfor %}
 
@@ -276,11 +276,11 @@ geist report --outputroot products << END_TEMPLATE
         {%- map isfilepath=False, mappings="mappings.json" as query_trs_shorten %} {% query_trs_str %} {% endmap %}
         {%- set query_trs = query_trs_shorten | json2df %}
         {% for _, row in query_trs.iterrows() %}
-        <u>{{ row["trs_name"][1:-1] }}</u>
+        <u>{{ row["trs_name"] }}</u>
         <ul>
-            <li>TRS ID: {{ row["trs_id"][1:-1] }}</li>
-            <li>TRS Description: {{ row["trs_descr"][1:-1] }}</li>
-            <li>Capabilities: {{ row["num_of_capabilities"][1:-1] }} (see below)</li>
+            <li>TRS ID: {{ row["trs_id"] }}</li>
+            <li>TRS Description: {{ row["trs_descr"] }}</li>
+            <li>Capabilities: {{ row["num_of_capabilities"] }} (see below)</li>
         </ul>
         {% endfor %}
         {%- table mappings="mappings.json" %}{% query_trs_capability_str %}{% endtable %}
@@ -309,15 +309,15 @@ geist report --outputroot products << END_TEMPLATE
             }
             ORDER BY ?arrangement
         {% endquery %}
-        {%- set query_arrangement = query_arrangement_str | json2df %}
-        {%- map isfilepath=False, mappings="mappings.json" as query_arrangement_shorten_str %} {{ query_arrangement_str }} {% endmap %}
-        {%- set query_arrangement_shorten = query_arrangement_shorten_str | json2df %}
-        {% for idx, row in query_arrangement_shorten.iterrows() %}
-        <u>{{ row["name"][1:-1] }}</u>
+
+        {%- map isfilepath=False, mappings="mappings.json", on="id" as query_arrangement_shorten %} {{ query_arrangement_str }} {% endmap %}
+        {%- set query_arrangement = query_arrangement_shorten | json2df %}
+        {% for idx, row in query_arrangement.iterrows() %}
+        <u>{{ row["name"] }}</u>
         <ul>
-            <li>Arrangement ID: {{ row["id"][1:-1] }}</li>
-            <li>Arrangement Description: {{ row["descr"][1:-1] }}</li>
-            <li>Digital artifacts: {%- table mappings="mappings.json" %}{% query_artifacts_by_arrangement_str query_arrangement.loc[idx, "arrangement"] %}{% endtable %}</li>
+            <li>Arrangement ID: {{ row["id"] }}</li>
+            <li>Arrangement Description: {{ row["descr"] }}</li>
+            <li>Digital artifacts: {%- table mappings="mappings.json" %}{% query_artifacts_by_arrangement_str row["arrangement"] %}{% endtable %}</li>
         </ul>
         {% endfor %}
 
@@ -369,8 +369,8 @@ END_TEMPLATE
         <table>
             <tr><th>id</th><th>name</th><th>description</th></tr>
         
-			<tr><td>"trs/capability/1"</td><td>"Capability of Recording Internet Access"</td><td>"TRS can record internet access"</td>
-			<tr><td>"trs/capability/2"</td><td>"Capability of Providing Internet Isolation"</td><td>"TRS can provide Internet isolation"</td>
+			<tr><td>trs/capability/1</td><td>Capability of Recording Internet Access</td><td>TRS can record internet access</td>
+			<tr><td>trs/capability/2</td><td>Capability of Providing Internet Isolation</td><td>TRS can provide Internet isolation</td>
         </table>
     
         <h3>Trusted Research Performances (TRPs) and Arrangements:</h3>
@@ -383,7 +383,7 @@ END_TEMPLATE
         <table>
             <tr><th>name</th><th>id</th><th>location</th></tr>
         
-			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"</td>
+			<tr><td>LBDA NetCDF file</td><td>composition/1/artifact/1</td><td>https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc</td>
         </table>
     </li>
         </ul>
@@ -395,8 +395,8 @@ END_TEMPLATE
         <table>
             <tr><th>name</th><th>id</th><th>location</th></tr>
         
-			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"data/lbda-v2_kddm_pmdi_2017.nc"</td>
-			<tr><td>"Initial Notebook"</td><td>"composition/1/artifact/2"</td><td>"analysis.ipynb"</td>
+			<tr><td>LBDA NetCDF file</td><td>composition/1/artifact/1</td><td>data/lbda-v2_kddm_pmdi_2017.nc</td>
+			<tr><td>Initial Notebook</td><td>composition/1/artifact/2</td><td>analysis.ipynb</td>
         </table>
     </li>
         </ul>
@@ -408,11 +408,11 @@ END_TEMPLATE
         <table>
             <tr><th>name</th><th>id</th><th>location</th></tr>
         
-			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"data/lbda-v2_kddm_pmdi_2017.nc"</td>
-			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"analysis.ipynb"</td>
-			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"output/analysis.html"</td>
-			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"output/histogram.png"</td>
-			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"output/lbda-v2_kddm_pmdi_2017.tiff"</td>
+			<tr><td>LBDA NetCDF file</td><td>composition/1/artifact/1</td><td>data/lbda-v2_kddm_pmdi_2017.nc</td>
+			<tr><td>Final Notebook</td><td>composition/1/artifact/3</td><td>analysis.ipynb</td>
+			<tr><td>Final Notebook HTML Rendering</td><td>composition/1/artifact/4</td><td>output/analysis.html</td>
+			<tr><td>Graphical Histogram Rendering</td><td>composition/1/artifact/5</td><td>output/histogram.png</td>
+			<tr><td>LBDA GeoTIFF file</td><td>composition/1/artifact/6</td><td>output/lbda-v2_kddm_pmdi_2017.tiff</td>
         </table>
     </li>
         </ul>
@@ -424,10 +424,10 @@ END_TEMPLATE
         <table>
             <tr><th>name</th><th>id</th><th>location</th></tr>
         
-			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"analysis.ipynb"</td>
-			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"analysis.html"</td>
-			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"histogram.png"</td>
-			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"lbda-v2_kddm_pmdi_2017.tiff"</td>
+			<tr><td>Final Notebook</td><td>composition/1/artifact/3</td><td>analysis.ipynb</td>
+			<tr><td>Final Notebook HTML Rendering</td><td>composition/1/artifact/4</td><td>analysis.html</td>
+			<tr><td>Graphical Histogram Rendering</td><td>composition/1/artifact/5</td><td>histogram.png</td>
+			<tr><td>LBDA GeoTIFF file</td><td>composition/1/artifact/6</td><td>lbda-v2_kddm_pmdi_2017.tiff</td>
         </table>
     </li>
         </ul>
@@ -436,12 +436,12 @@ END_TEMPLATE
         <table>
             <tr><th>name</th><th>id</th><th>mimeType</th><th>description</th></tr>
         
-			<tr><td>"LBDA NetCDF file"</td><td>"composition/1/artifact/1"</td><td>"application/x-netcdf"</td><td>"NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset"</td>
-			<tr><td>"Initial Notebook"</td><td>"composition/1/artifact/2"</td><td>"text/plain"</td><td>"Initial state of Jupyter notebook for processing the LBDA dataset"</td>
-			<tr><td>"Final Notebook"</td><td>"composition/1/artifact/3"</td><td>"text/plain"</td><td>"Final state of Jupyter notebook for processing the LBDA dataset"</td>
-			<tr><td>"Final Notebook HTML Rendering"</td><td>"composition/1/artifact/4"</td><td>"text/html"</td><td>"HTML rendering of final state of the Jupyter notebook"</td>
-			<tr><td>"Graphical Histogram Rendering"</td><td>"composition/1/artifact/5"</td><td>"image/png"</td><td>"Graphical rendering of the histogram of dataset values"</td>
-			<tr><td>"LBDA GeoTIFF file"</td><td>"composition/1/artifact/6"</td><td>"image/tiff"</td><td>"GeoTIFF file containing LBDA data cube ready for staging to SKOPE server"</td>
+			<tr><td>LBDA NetCDF file</td><td>composition/1/artifact/1</td><td>application/x-netcdf</td><td>NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset</td>
+			<tr><td>Initial Notebook</td><td>composition/1/artifact/2</td><td>text/plain</td><td>Initial state of Jupyter notebook for processing the LBDA dataset</td>
+			<tr><td>Final Notebook</td><td>composition/1/artifact/3</td><td>text/plain</td><td>Final state of Jupyter notebook for processing the LBDA dataset</td>
+			<tr><td>Final Notebook HTML Rendering</td><td>composition/1/artifact/4</td><td>text/html</td><td>HTML rendering of final state of the Jupyter notebook</td>
+			<tr><td>Graphical Histogram Rendering</td><td>composition/1/artifact/5</td><td>image/png</td><td>Graphical rendering of the histogram of dataset values</td>
+			<tr><td>LBDA GeoTIFF file</td><td>composition/1/artifact/6</td><td>image/tiff</td><td>GeoTIFF file containing LBDA data cube ready for staging to SKOPE server</td>
         </table>
     
 </body>

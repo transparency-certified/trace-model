@@ -5,18 +5,18 @@
     label="Subclass Vocab Graph"
             node[shape=box style="filled, rounded" fillcolor="#b3e2cd" peripheries=1 fontname=Courier]
                             
-    "ArtifactComposition" -> "ArtifactCollection"                            
-    "ArtifactLocus" -> "ArtifactCollection"                            
-    "TROAttribute" -> "TREAttribute"                            
-    "TRSAttribute" -> "TREAttribute"                            
-    "IncludesAllInputData" -> "TROAttribute"                            
-    "TRSCapability" -> "TRSAttribute"                            
-    "CanProvideInternetIsolation" -> "TRSCapability"                            
-    "TRSPolicy" -> "TRSCapability"                            
-    "EnforcesInternetIsolation" -> "TRSPolicy"                            
-    "TimeStampingAuthority" -> "TrustedResearchElement"                            
-    "TransparentResearchObject" -> "TrustedResearchElement"                            
-    "TrustedResearchPerformance" -> "TrustedResearchElement"                            
-    "TrustedResearchSystem" -> "TrustedResearchElement"            
+    ArtifactComposition -> ArtifactCollection                            
+    ArtifactLocus -> ArtifactCollection                            
+    TROAttribute -> TREAttribute                            
+    TRSAttribute -> TREAttribute                            
+    IncludesAllInputData -> TROAttribute                            
+    TRSCapability -> TRSAttribute                            
+    CanProvideInternetIsolation -> TRSCapability                            
+    TRSPolicy -> TRSCapability                            
+    EnforcesInternetIsolation -> TRSPolicy                            
+    TimeStampingAuthority -> TrustedResearchElement                            
+    TransparentResearchObject -> TrustedResearchElement                            
+    TrustedResearchPerformance -> TrustedResearchElement                            
+    TrustedResearchSystem -> TrustedResearchElement            
             
     }        
