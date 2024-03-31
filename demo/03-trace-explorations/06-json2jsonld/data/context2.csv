@@ -1,0 +1,4 @@
+k1,k2,k3,id
+composition,hasArtifact,artifact,composition/{id1}/artifact/{id2}
+arrangement,hasLocus,locus,arrangement/{id1}/locus/{id2}
+trp,hadPerformanceAttribute,trpAttribute,trp/{id1}/attribute/{id2}

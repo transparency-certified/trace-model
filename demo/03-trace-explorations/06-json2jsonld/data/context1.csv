@@ -1,0 +1,3 @@
+k1,k2,id
+trp,trpAttribute,trp/{id1}/attribute/{id2}
+composition,compArtifact,composition/{id1}/artifact/{id2}
