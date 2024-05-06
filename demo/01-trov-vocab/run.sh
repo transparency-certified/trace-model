@@ -8,10 +8,10 @@ GEIST_TEMPLATES=templates.geist
 bash_cell 'load trov vocabulary without inferences' << END_CELL
 
 # Destroy the dataset
-geist destroy --dataset kb --quiet
+geist destroy rdflib --dataset kb --quiet
 
 # Import TRACE vocabulary and export as N-TRIPLES
-geist create --dataset kb --inputformat json-ld --inputfile ${TRACE_VOCAB} --infer none
+geist create rdflib --dataset kb --inputformat json-ld --inputfile ${TRACE_VOCAB} --infer none
 
 END_CELL
 
@@ -25,7 +25,7 @@ bash_cell 'query subclass vocab' << END_CELL
 geist report --outputroot products << END_TEMPLATE
 
 {%- use "${GEIST_TEMPLATES}" %}
-{%- query isfilepath=False as query_subclass_vocab_str %}
+{%- query datastore="rdflib", isfilepath=False as query_subclass_vocab %}
     PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
@@ -42,7 +42,6 @@ geist report --outputroot products << END_TEMPLATE
     }
     ORDER BY ?ParentLabel ?ChildLabel
 {% endquery %}
-{%- set query_subclass_vocab = query_subclass_vocab_str | json2df %}
 
 {%- html "report_subclass.html" %}
 {%- head "Subclass Report" %}
@@ -76,7 +75,7 @@ geist report --outputroot products << END_TEMPLATE
         
         <h4>3. Table</h3>
         {%- table %}
-            {{ query_subclass_vocab_str }}
+            {{ query_subclass_vocab | df2json }}
         {% endtable %}
 </body>
 {% endhtml %}

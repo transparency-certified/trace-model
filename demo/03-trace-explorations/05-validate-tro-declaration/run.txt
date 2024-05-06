@@ -1,6 +1,6 @@
-================================ bash cell | tro validation 1 png: refer to a nonexistent artifact =================================
+================================ bash cell | tro validation 1 svg: refer to a nonexistent artifact =================================
 
-rdfvr -f data/tro1.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro1 -of png
+rdfvr -f data/tro1.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro1 -of svg
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -14,9 +14,9 @@ rdfvr -f data/tro1.jsonld -s data/tro.schema.ttl -m data/mappings.json -o produc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-================================ bash cell | tro validation 2 png: refer to a nonexistent artifact =================================
+================================ bash cell | tro validation 2 svg: refer to a nonexistent artifact =================================
 
-rdfvr -f data/tro2.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro2 -of png
+rdfvr -f data/tro2.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro2 -of svg
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -30,9 +30,9 @@ rdfvr -f data/tro2.jsonld -s data/tro.schema.ttl -m data/mappings.json -o produc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-================================ bash cell | tro validation 3 png: refer to a nonexistent artifact =================================
+================================ bash cell | tro validation 3 svg: refer to a nonexistent artifact =================================
 
-rdfvr -f data/tro3.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro3 -of png
+rdfvr -f data/tro3.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro3 -of svg
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -46,9 +46,9 @@ rdfvr -f data/tro3.jsonld -s data/tro.schema.ttl -m data/mappings.json -o produc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-========================================= bash cell | tro validation 4 png: lack of sha256 =========================================
+========================================= bash cell | tro validation 4 svg: lack of sha256 =========================================
 
-rdfvr -f data/tro4.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro4 -of png
+rdfvr -f data/tro4.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro4 -of svg
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -62,9 +62,9 @@ rdfvr -f data/tro4.jsonld -s data/tro.schema.ttl -m data/mappings.json -o produc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=================================== bash cell | tro validation 5 export as png: multiple sha256 ====================================
+=================================== bash cell | tro validation 5 export as svg: multiple sha256 ====================================
 
-rdfvr -f data/tro5.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro5 -of png
+rdfvr -f data/tro5.jsonld -s data/tro.schema.ttl -m data/mappings.json -o products/tro5 -of svg
 
 ----------------------------------------------------------- cell outputs -----------------------------------------------------------
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

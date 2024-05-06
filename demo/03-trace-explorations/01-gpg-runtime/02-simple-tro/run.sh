@@ -19,8 +19,8 @@ END_CELL
 bash_cell 'import jsonld' << END_CELL
 
 # Import TRO as JSON-LD and export as N-TRIPLES
-geist destroy --dataset kb --quiet
-geist create --dataset kb --inputformat json-ld --inputfile ${TRO_DECLARATION} --infer owl
+geist destroy rdflib --dataset kb --quiet
+geist create rdflib --dataset kb --inputformat json-ld --inputfile ${TRO_DECLARATION} --infer owl
 
 END_CELL
 

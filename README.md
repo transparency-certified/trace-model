@@ -8,9 +8,11 @@ Make commands issued in the top-level directory are used to obtain the Docker im
 
 ## Setup the environment
 
-First start the REPRO in interactive mode using the `make start-repro` command (or the shorthand `make start`).
+First pull the parent image from Docker Hub using the `make pull-parent` command and build this REPRO's Docker image using the `make build-image` command (or the shorthand `image`).
 
-Then Install the related Python packages using the `pip install .` command.
+Then start the REPRO in interactive mode using the `make start-repro` command (or the shorthand `make start`).
+
+Next, install the related Python packages using the `pip install .` command.
 
 Finally, exit the REPRO using the `exit` command.
 
@@ -82,6 +84,7 @@ Below gives a brief description of these demonstrations:
     - _03-tro-fingerprint-state_ demonstrates how a fingerprint of a given state can be computed.
     - _04-timestamp_ demonstrates how a trusted timestamp can be created and applied to a TRO.
     - _05-validate-tro-declaration_ demonstrates how a TRO declaration can be validated through 5 examples.
+    - _06-json2jsonld_ demonstrates how to convert JSON into JSON-LD to enable a light version of TROV.
 
 To establish that the demonstrations can be reproduced, first use the `make clean-demo` command to delete the files produced by the demo:
 ```
