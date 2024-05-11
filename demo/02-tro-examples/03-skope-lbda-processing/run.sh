@@ -17,7 +17,7 @@ geist report --outputroot products << END_TEMPLATE
     <body>
         <h1><img src="https://transparency-certified.github.io/trace-specification/_static/logo.png" alt="Logo" class="logo">  TRO Report</h1>
         <button id="ID_Button">Show/Hide IDs</button>
-        <h3>This Transparent Research Object:</h3>
+        <h3>This Transparent Research Object (TRO):</h3>
         {%- map isfilepath=False, mappings="mappings.json" as query_tro %} {% query_tro_str %} {% endmap %}
         {% for _, row in query_tro.iterrows() %}
         <u>{{ row["tro_name"] }}</u>
@@ -28,11 +28,11 @@ geist report --outputroot products << END_TEMPLATE
             <li>TRO Description: {{ row["tro_descr"] }}</li>
             <li>Digital artifacts: {{ row["num_of_artifacts"] }}</li>
             <li>Artifact artifact arrangements: {{ row["num_of_arrs"] }}</li>
-            <li>Trusted Research Performances (TRPs): {{ row["num_of_trps"] }}</li>
+            <li>Transparent Research Performances (TRPs): {{ row["num_of_trps"] }}</li>
         </ul>
         {% endfor %}
 
-        <button id="TRS-Button" class="button" data-target="TRS-Content">Trusted Research System</button>
+        <button id="TRS-Button" class="button" data-target="TRS-Content">Transparent Research System (TRS)</button>
         <div id="TRS-Content" class="content">
             {%- map isfilepath=False, mappings="mappings.json" as query_trs %} {% query_trs_str %} {% endmap %}
             {% for _, row in query_trs.iterrows() %}
@@ -47,7 +47,7 @@ geist report --outputroot products << END_TEMPLATE
             {%- table mappings="mappings.json" %}{% query_trs_capability_str %}{% endtable %}
         </div>
 
-        <button id="TRP-Button" class="button" data-target="TRP-Content">Trusted Research Performances (TRPs) and Arrangements</button>
+        <button id="TRP-Button" class="button" data-target="TRP-Content">Transparent Research Performances (TRPs) and Arrangements</button>
         <div id="TRP-Content" class="content">
             {% img src="trp.svg" %}
                 {%- gv_graph "trp", "LR" %}
