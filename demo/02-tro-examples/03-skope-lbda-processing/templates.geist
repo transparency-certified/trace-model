@@ -73,7 +73,7 @@
     {%- query datastore="rdflib", isfilepath=False as query_trs %}
         SELECT ?trs_publisher ?trs_name (STR(?trs) AS ?trs_id) ?trs_descr (COUNT(DISTINCT ?capability) AS ?num_of_capabilities)
         WHERE {
-            ?trs        rdf:type        trov:TrustedResearchSystem .
+            ?trs        rdf:type        trov:TransparentResearchSystem .
             ?trs        trov:hasCapability ?capability .
             ?trs        <schema:publisher> ?trs_publisher .
             ?trs        rdfs:label      ?trs_name .
@@ -87,7 +87,7 @@
     {%- query datastore="rdflib", isfilepath=False as query_trs_capability %}
         SELECT DISTINCT (STR(?capability) AS ?id) ?name ?description
         WHERE {
-            ?trs        rdf:type    trov:TrustedResearchSystem .
+            ?trs        rdf:type    trov:TransparentResearchSystem .
             ?trs        trov:hasCapability ?capability .
             ?capability rdfs:label  ?name .
             ?capability rdfs:comment    ?description .
@@ -101,7 +101,7 @@
     {%- query datastore="rdflib", isfilepath=False as query_trp %}
         SELECT DISTINCT ?trp ?in ?out
         WHERE {
-            ?trp   rdf:type    trov:TrustedResearchPerformance .
+            ?trp   rdf:type    trov:TransparentResearchPerformance .
             ?trp   trov:accessedArrangement ?in .
             ?trp   trov:contributedToArrangement ?out .
         }
@@ -114,7 +114,7 @@
     {%- query datastore="rdflib", isfilepath=False as query_trp_details %}
         SELECT DISTINCT ?trp ?description ?start ?end
         WHERE {
-            ?trp   rdf:type             trov:TrustedResearchPerformance .
+            ?trp   rdf:type             trov:TransparentResearchPerformance .
             ?trp   rdfs:comment         ?description .
             ?trp   trov:startedAtTime   ?start .
             ?trp   trov:endedAtTime     ?end .
