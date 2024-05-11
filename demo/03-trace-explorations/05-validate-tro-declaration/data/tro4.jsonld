@@ -32,10 +32,10 @@
         "trov:hasArrangement": {
         "@id": "arrangement/1",
         "@type": "trov:ArtifactArrangement",
-        "trov:hasLocus": [
+        "trov:hasArtifactLocation": [
             {
-                "@id": "arrangement/1/locus/1",
-                "@type": "trov:ArtifactLocus",
+                "@id": "arrangement/1/location/1",
+                "@type": "trov:ArtifactLocation",
                 "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
                 "trov:hasLocation": "filepath1"
             }]

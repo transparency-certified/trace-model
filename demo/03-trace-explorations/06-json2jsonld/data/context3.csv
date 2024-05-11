@@ -18,7 +18,7 @@ hasArtifact,trov:hasArtifact
 mimeType,trov:mimeType
 hasArrangement,trov:hasArrangement
 arrangement,@id,arrangement/
-hasLocus,trov:hasLocus
+hasArtifactLocation,trov:hasArtifactLocation
 hasLocation,trov:hasLocation
 hasPerformance,trov:hasPerformance
 trp,@id,trp/

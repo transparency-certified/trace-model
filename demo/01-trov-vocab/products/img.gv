@@ -14,9 +14,9 @@
     CanProvideInternetIsolation -> TRSCapability                            
     TRSPolicy -> TRSCapability                            
     EnforcesInternetIsolation -> TRSPolicy                            
-    TimeStampingAuthority -> TrustedResearchElement                            
-    TransparentResearchObject -> TrustedResearchElement                            
-    TrustedResearchPerformance -> TrustedResearchElement                            
-    TrustedResearchSystem -> TrustedResearchElement            
+    TimeStampingAuthority -> TransparentResearchElement                            
+    TransparentResearchObject -> TransparentResearchElement                            
+    TransparentResearchPerformance -> TransparentResearchElement                            
+    TransparentResearchSystem -> TransparentResearchElement            
             
     }        

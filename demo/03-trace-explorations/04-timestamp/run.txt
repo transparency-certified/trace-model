@@ -1,7 +1,7 @@
 ================================ bash cell | Compute a digest for tro declaration and trs signature ================================
 
 cat > products/digest.yaml << EOF
-tro-declaration: bb9419749c818caff88814324a83ff279ebbb564215077ae7c65431f73bd02cf
+tro-declaration: 1d019ac3518b6f20bbc93c829e6c0d3234c9a83c99c0a1615580537836b0a079
 trs-signature": 9fb5dd0a2b9afdf4071b43558848a70101c91d3b1eab61f6a369740c36c2ea8d
 EOF
 

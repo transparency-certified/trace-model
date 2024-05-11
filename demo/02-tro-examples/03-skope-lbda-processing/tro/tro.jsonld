@@ -11,14 +11,14 @@
     {
         "@id": "tro",
         "@type": "trov:TransparentResearchObject",
-        "schema:creator": "LBDA Explorer",
+        "schema:creator": "Jane Archaeologist",
         "schema:dateCreated": "2023-05-09T10:00:00Z",
         "rdfs:label": "LBDA Exploration Example",
         "rdfs:comment": "Download LBDA dataset from NOAA website and prepare for use by researchers employing the SKOPE application",
 
         "trov:wasAssembledBy": {
             "@id": "trs",
-            "@type": "trov:TrustedResearchSystem",
+            "@type": "trov:TransparentResearchSystem",
             "schema:publisher": "TRACE Project",
             "rdfs:label": "TRACE Reference Implementation",
             "rdfs:comment": "TRS that can monitor netowrk accesses or provide Internet isolation",
@@ -126,10 +126,10 @@
                 "@type": "trov:WebResourceArtifactArrangement",
                 "rdfs:label": "Web Resource Artifact Arrangement",
                 "rdfs:comment": "Arrangement describing location of LBDA NetCDF file on NOAA web server",
-                "trov:hasLocus": [
+                "trov:hasArtifactLocation": [
                     {
-                        "@id": "arrangement/1/locus/1",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/1/location/1",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
                         "trov:hasLocation": "https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"
@@ -141,17 +141,17 @@
                 "@type": "trov:LocalFilesystemArtifactArrangement",
                 "rdfs:label": "Local File System Artifact Arrangement",
                 "rdfs:comment": "Arrangement on fileserver managed by TRS after downloading dataset and before running Jupyter notebook",
-                "trov:hasLocus": [
+                "trov:hasArtifactLocation": [
                     {
-                        "@id": "arrangement/2/locus/1",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/2/location/1",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
                         "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
                     },
                     {
-                        "@id": "arrangement/2/locus/2",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/2/location/2",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Initial Notebook",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/2" },
                         "trov:hasLocation": "analysis.ipynb"
@@ -163,38 +163,38 @@
                 "@type": "trov:LocalFilesystemArtifactArrangement",
                 "rdfs:label": "Local File System Artifact Arrangement",
                 "rdfs:comment": "Arrangement on fileserver managed by TRS after running Jupyter notebook",
-                "trov:hasLocus": [
+                "trov:hasArtifactLocation": [
                     {
-                        "@id": "arrangement/3/locus/1",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/3/location/1",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
                         "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
                     },
                     {
-                        "@id": "arrangement/3/locus/2",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/3/location/2",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/3" },
                         "trov:hasLocation": "analysis.ipynb"
                     },
                     {
-                        "@id": "arrangement/3/locus/3",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/3/location/3",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook HTML Rendering",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/4" },
                         "trov:hasLocation": "output/analysis.html"
                     },
                     {
-                        "@id": "arrangement/3/locus/4",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/3/location/4",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Graphical Histogram Rendering",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/5" },
                         "trov:hasLocation": "output/histogram.png"
                     },
                     {
-                        "@id": "arrangement/3/locus/5",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/3/location/5",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA GeoTIFF file",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/6" },
                         "trov:hasLocation": "output/lbda-v2_kddm_pmdi_2017.tiff"
@@ -206,31 +206,31 @@
                 "@type": "trov:ZipArtifactArrangement",
                 "rdfs:label": "Zip Artifact Arrangement",
                 "rdfs:comment": "Arrangement of final products packaged in a Zip file",
-                "trov:hasLocus": [
+                "trov:hasArtifactLocation": [
                     {
-                        "@id": "arrangement/4/locus/1",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/4/location/1",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/3" },
                         "trov:hasLocation": "analysis.ipynb"
                     },
                     {
-                        "@id": "arrangement/4/locus/2",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/4/location/2",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook HTML Rendering",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/4" },
                         "trov:hasLocation": "analysis.html"
                     },
                     {
-                        "@id": "arrangement/4/locus/3",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/4/location/3",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Graphical Histogram Rendering",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/5" },
                         "trov:hasLocation": "histogram.png"
                     },
                     {
-                        "@id": "arrangement/4/locus/5",
-                        "@type": "trov:ArtifactLocus",
+                        "@id": "arrangement/4/location/5",
+                        "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA GeoTIFF file",
                         "trov:hasArtifact": { "@id": "composition/1/artifact/6" },
                         "trov:hasLocation": "lbda-v2_kddm_pmdi_2017.tiff"
@@ -242,7 +242,7 @@
         "trov:hasPerformance": [
             {
                 "@id": "trp/1",
-                "@type": "trov:TrustedResearchPerformance",
+                "@type": "trov:TransparentResearchPerformance",
                 "rdfs:comment": "Process that downloaded the LBDA NetCDF file from NOAA server to local filesystem",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:30:00Z",
@@ -258,7 +258,7 @@
 
             {
                 "@id": "trp/2",
-                "@type": "trov:TrustedResearchPerformance",
+                "@type": "trov:TransparentResearchPerformance",
                 "rdfs:comment": "Process that ran Jupyter notebook",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:41:00Z",
@@ -274,7 +274,7 @@
 
             {
                 "@id": "trp/3",
-                "@type": "trov:TrustedResearchPerformance",
+                "@type": "trov:TransparentResearchPerformance",
                 "rdfs:comment": "Process that packaged products of the Jupyter notebook execution in a Zip file",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:51:00Z",

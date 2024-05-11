@@ -14,7 +14,7 @@
 
         "trov:wasAssembledBy": {
             "@id": "trs",
-            "@type": "trov:TrustedResearchSystem",
+            "@type": "trov:TransparentResearchSystem",
             "rdfs:comment": "TRS that enforces no policies",
             "trov:publicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nmI0EZDYvLQEEALgKOwntOmQquijOSnnOOHYAEMKwIO//Ukogb8ftzIBGZ6PSSI9f\nPFa62W7k1CWEm7KLcOO5hlmMvI+GJLnLa4y60wxcKEq26Hi/r9SPO2HbjJMo9vy6\nTbwSndwn148wKzpfSH4dt3v5xJJ5ty0nz2k3cKsKxuOV/X23R0GotxUtABEBAAG0\nHXJlcHJvIHVzZXIgPHJlcHJvQHJlcHJvcy5kZXY+iM4EEwEKADgWIQQS8oDdaGyb\nHbIUMG5hkHOSVXRlzAUCZDYvLQIbLwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAK\nCRBhkHOSVXRlzJeoA/40RSsS88t6zXgBmHZDXyV9d5+CknyQ3yV/fpEU+IH2T6qS\nxrj9JZ8wIk4K2yntksmNOioztGyzTwrZlf6Gd/xo0U26ptKgxppBQZV/Wbzjpo1N\nIsGEo6zUxyfInIxL/nnAlktGhl9B8teoyqwmMCP8bmrUiLSeex+1An5ogCOACg==\n=vuaX\n-----END PGP PUBLIC KEY BLOCK-----\n"
         },
@@ -57,16 +57,16 @@
             {
             "@id": "arrangement/1",
             "@type": "trov:ArtifactArrangement",
-            "trov:hasLocus": [
+            "trov:hasArtifactLocation": [
                 {
-                    "@id": "arrangement/1/locus/1",
-                    "@type": "trov:ArtifactLocus",
+                    "@id": "arrangement/1/location/1",
+                    "@type": "trov:ArtifactLocation",
                     "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
                     "trov:hasLocation": "file1"
                 },
                 {
-                    "@id": "arrangement/1/locus/2",
-                    "@type": "trov:ArtifactLocus",
+                    "@id": "arrangement/1/location/2",
+                    "@type": "trov:ArtifactLocation",
                     "trov:hasArtifact": { "@id": "composition/1/artifact/2" },
                     "trov:hasLocation": "file2"
                 }

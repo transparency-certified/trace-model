@@ -4,7 +4,7 @@
     "description": "Download LBDA dataset from NOAA website and prepare for use by researchers employing the SKOPE application",
 
     "wasAssembledBy": {
-        "label": "Trusted Research System Instance",
+        "label": "Transparent Research System Instance",
         "description": "TRS that can monitor netowrk accesses or provide Internet isolation",
         "publicKey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nmI0EZDYvLQEEALgKOwntOmQquijOSnnOOHYAEMKwIO//Ukogb8ftzIBGZ6PSSI9f\nPFa62W7k1CWEm7KLcOO5hlmMvI+GJLnLa4y60wxcKEq26Hi/r9SPO2HbjJMo9vy6\nTbwSndwn148wKzpfSH4dt3v5xJJ5ty0nz2k3cKsKxuOV/X23R0GotxUtABEBAAG0\nHXJlcHJvIHVzZXIgPHJlcHJvQHJlcHJvcy5kZXY+iM4EEwEKADgWIQQS8oDdaGyb\nHbIUMG5hkHOSVXRlzAUCZDYvLQIbLwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAK\nCRBhkHOSVXRlzJeoA/40RSsS88t6zXgBmHZDXyV9d5+CknyQ3yV/fpEU+IH2T6qS\nxrj9JZ8wIk4K2yntksmNOioztGyzTwrZlf6Gd/xo0U26ptKgxppBQZV/Wbzjpo1N\nIsGEo6zUxyfInIxL/nnAlktGhl9B8teoyqwmMCP8bmrUiLSeex+1An5ogCOACg==\n=vuaX\n-----END PGP PUBLIC KEY BLOCK-----\n",
         "hasCapability": [
@@ -96,9 +96,9 @@
             "arrangement": 1,
             "label": "Web Resource Artifact Arrangement Instance",
             "description": "Arrangement describing location of LBDA NetCDF file on NOAA web server",
-            "hasLocus": [
+            "hasArtifactLocation": [
                 {
-                    "locus": 1,
+                    "artifactLocation": 1,
                     "label": "LBDA NetCDF file",
                     "hasArtifact": {"composition": 1, "compArtifact": 1},
                     "hasLocation": "https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"
@@ -109,15 +109,15 @@
             "arrangement": 2,
             "label": "Local File System Artifact Arrangement Instance",
             "description": "Arrangement on fileserver managed by TRS after downloading dataset and before running Jupyter notebook",
-            "hasLocus": [
+            "hasArtifactLocation": [
                 {
-                    "locus": 1,
+                    "artifactLocation": 1,
                     "label": "LBDA NetCDF file",
                     "hasArtifact": {"composition": 1, "compArtifact": 1},
                     "hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
                 },
                 {
-                    "locus": 2,
+                    "artifactLocation": 2,
                     "label": "Initial Notebook",
                     "hasArtifact": {"composition": 1, "compArtifact": 2},
                     "hasLocation": "analysis.ipynb"
@@ -128,33 +128,33 @@
             "arrangement": 3,
             "label": "Local File System Artifact Arrangement Instance",
             "description": "Arrangement on fileserver managed by TRS after running Jupyter notebook",
-            "hasLocus": [
+            "hasArtifactLocation": [
                 {
-                    "locus": 1,
+                    "artifactLocation": 1,
                     "label": "LBDA NetCDF file",
                     "hasArtifact": {"composition": 1, "compArtifact": 1},
                     "hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
                 },
                 {
-                    "locus": 2,
+                    "artifactLocation": 2,
                     "label": "Final Notebook",
                     "hasArtifact": {"composition": 1, "compArtifact": 3},
                     "hasLocation": "analysis.ipynb"
                 },
                 {
-                    "locus": 3,
+                    "artifactLocation": 3,
                     "label": "Final Notebook HTML Rendering",
                     "hasArtifact": {"composition": 1, "compArtifact": 4},
                     "hasLocation": "output/analysis.html"
                 },
                 {
-                    "locus": 4,
+                    "artifactLocation": 4,
                     "label": "Graphical Histogram Rendering",
                     "hasArtifact": {"composition": 1, "compArtifact": 5},
                     "hasLocation": "output/histogram.png"
                 },
                 {
-                    "locus": 5,
+                    "artifactLocation": 5,
                     "label": "LBDA GeoTIFF file",
                     "hasArtifact": {"composition": 1, "compArtifact": 6},
                     "hasLocation": "output/lbda-v2_kddm_pmdi_2017.tiff"
@@ -165,27 +165,27 @@
             "arrangement": 4,
             "label": "Zip Artifact Arrangement Instance",
             "description": "Arrangement of final products packaged in a Zip file",
-            "hasLocus": [
+            "hasArtifactLocation": [
                 {
-                    "locus": 1,
+                    "artifactLocation": 1,
                     "label": "Final Notebook",
                     "hasArtifact": {"composition": 1, "compArtifact": 3},
                     "hasLocation": "analysis.ipynb"
                 },
                 {
-                    "locus": 2,
+                    "artifactLocation": 2,
                     "label": "Final Notebook HTML Rendering",
                     "hasArtifact": {"composition": 1, "compArtifact": 4},
                     "hasLocation": "analysis.html"
                 },
                 {
-                    "locus": 3,
+                    "artifactLocation": 3,
                     "label": "Graphical Histogram Rendering",
                     "hasArtifact": {"composition": 1, "compArtifact": 5},
                     "hasLocation": "histogram.png"
                 },
                 {
-                    "locus": 5,
+                    "artifactLocation": 5,
                     "label": "LBDA GeoTIFF file",
                     "hasArtifact": {"composition": 1, "compArtifact": 6},
                     "hasLocation": "lbda-v2_kddm_pmdi_2017.tiff"

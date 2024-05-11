@@ -12,7 +12,7 @@
       "rdfs:label": "Transparent Research Object Instance",
       "rdfs:comment": "Download LBDA dataset from NOAA website and prepare for use by researchers employing the SKOPE application",
       "trov:wasAssembledBy": {
-        "rdfs:label": "Trusted Research System Instance",
+        "rdfs:label": "Transparent Research System Instance",
         "rdfs:comment": "TRS that can monitor netowrk accesses or provide Internet isolation",
         "trov:hasCapability": [
           {
@@ -103,9 +103,9 @@
           "rdfs:label": "Web Resource Artifact Arrangement Instance",
           "rdfs:comment": "Arrangement describing location of LBDA NetCDF file on NOAA web server",
           "@id": "arrangement/1",
-          "trov:hasLocus": [
+          "trov:hasArtifactLocation": [
             {
-              "@id": "arrangement/1/locus/1",
+              "@id": "arrangement/1/location/1",
               "rdfs:label": "LBDA NetCDF file",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/1"
@@ -118,9 +118,9 @@
           "rdfs:label": "Local File System Artifact Arrangement Instance",
           "rdfs:comment": "Arrangement on fileserver managed by TRS after downloading dataset and before running Jupyter notebook",
           "@id": "arrangement/2",
-          "trov:hasLocus": [
+          "trov:hasArtifactLocation": [
             {
-              "@id": "arrangement/2/locus/1",
+              "@id": "arrangement/2/location/1",
               "rdfs:label": "LBDA NetCDF file",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/1"
@@ -128,7 +128,7 @@
               "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
             },
             {
-              "@id": "arrangement/2/locus/2",
+              "@id": "arrangement/2/location/2",
               "rdfs:label": "Initial Notebook",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/2"
@@ -141,9 +141,9 @@
           "rdfs:label": "Local File System Artifact Arrangement Instance",
           "rdfs:comment": "Arrangement on fileserver managed by TRS after running Jupyter notebook",
           "@id": "arrangement/3",
-          "trov:hasLocus": [
+          "trov:hasArtifactLocation": [
             {
-              "@id": "arrangement/3/locus/1",
+              "@id": "arrangement/3/location/1",
               "rdfs:label": "LBDA NetCDF file",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/1"
@@ -151,7 +151,7 @@
               "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
             },
             {
-              "@id": "arrangement/3/locus/2",
+              "@id": "arrangement/3/location/2",
               "rdfs:label": "Final Notebook",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/3"
@@ -159,7 +159,7 @@
               "trov:hasLocation": "analysis.ipynb"
             },
             {
-              "@id": "arrangement/3/locus/3",
+              "@id": "arrangement/3/location/3",
               "rdfs:label": "Final Notebook HTML Rendering",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/4"
@@ -167,7 +167,7 @@
               "trov:hasLocation": "output/analysis.html"
             },
             {
-              "@id": "arrangement/3/locus/4",
+              "@id": "arrangement/3/location/4",
               "rdfs:label": "Graphical Histogram Rendering",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/5"
@@ -175,7 +175,7 @@
               "trov:hasLocation": "output/histogram.png"
             },
             {
-              "@id": "arrangement/3/locus/5",
+              "@id": "arrangement/3/location/5",
               "rdfs:label": "LBDA GeoTIFF file",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/6"
@@ -188,9 +188,9 @@
           "rdfs:label": "Zip Artifact Arrangement Instance",
           "rdfs:comment": "Arrangement of final products packaged in a Zip file",
           "@id": "arrangement/4",
-          "trov:hasLocus": [
+          "trov:hasArtifactLocation": [
             {
-              "@id": "arrangement/4/locus/1",
+              "@id": "arrangement/4/location/1",
               "rdfs:label": "Final Notebook",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/3"
@@ -198,7 +198,7 @@
               "trov:hasLocation": "analysis.ipynb"
             },
             {
-              "@id": "arrangement/4/locus/2",
+              "@id": "arrangement/4/location/2",
               "rdfs:label": "Final Notebook HTML Rendering",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/4"
@@ -206,7 +206,7 @@
               "trov:hasLocation": "analysis.html"
             },
             {
-              "@id": "arrangement/4/locus/3",
+              "@id": "arrangement/4/location/3",
               "rdfs:label": "Graphical Histogram Rendering",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/5"
@@ -214,7 +214,7 @@
               "trov:hasLocation": "histogram.png"
             },
             {
-              "@id": "arrangement/4/locus/5",
+              "@id": "arrangement/4/location/5",
               "rdfs:label": "LBDA GeoTIFF file",
               "trov:hasArtifact": {
                 "@id": "composition/1/artifact/6"

@@ -44,7 +44,7 @@
     {%- query datastore="rdflib", isfilepath=False as query_artifacts_by_arrangement %}
         SELECT DISTINCT ?name (STR(?artifact) AS ?id) ?location
         WHERE {
-            {{ arrangement }}   trov:hasLocus   ?locus .
+            {{ arrangement }}   trov:hasArtifactLocation   ?locus .
             ?locus              rdfs:label      ?name .
             ?locus              trov:hasArtifact    ?artifact .
             ?locus              trov:hasLocation    ?location .

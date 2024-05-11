@@ -112,10 +112,10 @@ END_TEMPLATE
     CanProvideInternetIsolation -> TRSCapability                            
     TRSPolicy -> TRSCapability                            
     EnforcesInternetIsolation -> TRSPolicy                            
-    TimeStampingAuthority -> TrustedResearchElement                            
-    TransparentResearchObject -> TrustedResearchElement                            
-    TrustedResearchPerformance -> TrustedResearchElement                            
-    TrustedResearchSystem -> TrustedResearchElement            
+    TimeStampingAuthority -> TransparentResearchElement                            
+    TransparentResearchObject -> TransparentResearchElement                            
+    TransparentResearchPerformance -> TransparentResearchElement                            
+    TransparentResearchSystem -> TransparentResearchElement            
             
     }        </code></pre>        
         <h4>3. Table</h3>
@@ -131,10 +131,10 @@ END_TEMPLATE
 			<tr><td>TRSCapability</td><td>CanProvideInternetIsolation</td>
 			<tr><td>TRSCapability</td><td>TRSPolicy</td>
 			<tr><td>TRSPolicy</td><td>EnforcesInternetIsolation</td>
-			<tr><td>TrustedResearchElement</td><td>TimeStampingAuthority</td>
-			<tr><td>TrustedResearchElement</td><td>TransparentResearchObject</td>
-			<tr><td>TrustedResearchElement</td><td>TrustedResearchPerformance</td>
-			<tr><td>TrustedResearchElement</td><td>TrustedResearchSystem</td>
+			<tr><td>TransparentResearchElement</td><td>TimeStampingAuthority</td>
+			<tr><td>TransparentResearchElement</td><td>TransparentResearchObject</td>
+			<tr><td>TransparentResearchElement</td><td>TransparentResearchPerformance</td>
+			<tr><td>TransparentResearchElement</td><td>TransparentResearchSystem</td>
         </table>
     </body>
 </html>

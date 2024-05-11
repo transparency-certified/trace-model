@@ -8,36 +8,36 @@
     "@graph": [
 
         {
-            "@id": "trov:TrustedResearchElement",
+            "@id": "trov:TransparentResearchElement",
             "@type": "rdfs:Class",
-            "rdfs:label": "TrustedResearchElement",
+            "rdfs:label": "TransparentResearchElement",
             "rdfs:comment": "Common base class for TRSs, TRPs, and TROs."
         },
         {
-            "@id": "trov:TrustedResearchSystem",
+            "@id": "trov:TransparentResearchSystem",
             "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TrustedResearchElement" },
-            "rdfs:label": "TrustedResearchSystem",
+            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
+            "rdfs:label": "TransparentResearchSystem",
             "rdfs:comment": "A system certified to perform TRPs and assemble TROs."
         },
         {
-            "@id": "trov:TrustedResearchPerformance",
+            "@id": "trov:TransparentResearchPerformance",
             "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TrustedResearchElement" },
-            "rdfs:label": "TrustedResearchPerformance",
+            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
+            "rdfs:label": "TransparentResearchPerformance",
             "rdfs:comment": "A set of research operations performed by a TRS."
         },
         {
             "@id": "trov:TransparentResearchObject",
             "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TrustedResearchElement" },
+            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
             "rdfs:label": "TransparentResearchObject",
             "rdfs:comment": "A set of research artifacts produced by a TRP and signed by the performing TRS."
         },
         {
             "@id": "trov:TimeStampingAuthority",
             "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TrustedResearchElement" },
+            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
             "rdfs:label": "TimeStampingAuthority",
             "rdfs:comment": "A timestamping authority trusted by a TRS."
         },
@@ -122,7 +122,7 @@
             "rdfs:comment": "Unique fingerprint of a particular artifact composition"
         },
         {
-            "@id": "trov:ArtifactLocus",
+            "@id": "trov:ArtifactLocation",
             "@type": "rdfs:Class",
             "rdfs:label": "ArtifactLocus",
             "rdfs:subClassOf": { "@id": "trov:ArtifactCollection" },
@@ -135,17 +135,24 @@
             "rdfs:comment": "A set of loci describing the location of one or more artifacts"
         },
         {
-            "@id": "trov:TrustedResearchPerformance",
+            "@id": "trov:TransparentResearchPerformance",
             "@type": "rdfs:Class",
-            "rdfs:label": "TrustedResearchPerformance",
+            "rdfs:label": "TransparentResearchPerformance",
             "rdfs:comment": "An execution of a research process"
+        },
+        {
+            "@id": "trov:hasCapability",
+            "@type": "rdf:Property",
+            "rdfs:label": "hasCapability",
+            "rdfs:domain": { "@id": "trov:TransparentResearchSystem" },
+            "rdfs:range": { "@id": "trov:TRSCapability" }
         },
         {
             "@id": "trov:wasAssembledBy",
             "@type": "rdf:Property",
             "rdfs:label": "wasAssembledBy",
             "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:TrustedResearchSystem" }
+            "rdfs:range": { "@id": "trov:TransparentResearchSystem" }
         },
         {
             "@id": "trov:wasTimestampedBy",
@@ -183,17 +190,17 @@
             "rdfs:range": { "@id": "trov:ArtifactArrangement" }
         },
         {
-            "@id": "trov:hasLocus",
+            "@id": "trov:hasArtifactLocation",
             "@type": "rdf:Property",
             "rdfs:label": "hasLocus",
             "rdfs:domain": { "@id": "trov:ArtifactArrangement" },
-            "rdfs:range": { "@id": "trov:ArtifactLocus" }
+            "rdfs:range": { "@id": "trov:ArtifactLocation" }
         },
         {
             "@id": "trov:hasLocation",
             "@type": "rdf:Property",
             "rdfs:label": "hasLocus",
-            "rdfs:domain": { "@id": "trov:ArtifactLocus" },
+            "rdfs:domain": { "@id": "trov:ArtifactLocation" },
             "rdfs:range": { "@id": "rdfs:Literal" }
         }
     ]

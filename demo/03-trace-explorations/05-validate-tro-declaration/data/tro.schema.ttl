@@ -39,7 +39,7 @@ schema:TroShape
 
 schema:TrsShape
     a sh:NodeShape ;
-    sh:targetClass trov:TrustedResearchSystem ;
+    sh:targetClass trov:TransparentResearchSystem ;
     sh:property [
         sh:path rdfs:comment ;
         sh:datatype xsd:string ;
@@ -105,22 +105,22 @@ schema:ArtifactShape
 schema:ArrShape
     a sh:NodeShape ;
     sh:targetClass trov:ArtifactArrangement ;
-    sh:property [ # Each artifact has at LEAST ONE artifact locus
-        sh:path trov:hasLocus ;
+    sh:property [ # Each artifact has at LEAST ONE artifact location
+        sh:path trov:hasArtifactLocation ;
         sh:minCount 1 ;
-        sh:node schema:LocusShape ;
+        sh:node schema:ArtifactLocationShape ;
     ] .
 
-schema:LocusShape
+schema:ArtifactLocationShape
     a sh:NodeShape ;
-    sh:targetClass trov:ArtifactLocus ;
-    sh:property [ # Each artifact locus is linked to a valid artifact
+    sh:targetClass trov:ArtifactLocation ;
+    sh:property [ # Each artifact location is linked to a valid artifact
         sh:path trov:hasArtifact ;
         sh:class trov:ResearchArtifact ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ] ;
-    sh:property [ # Each artifact locus has EXACTLY ONE location
+    sh:property [ # Each artifact location has EXACTLY ONE location
         sh:path trov:hasLocation ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
