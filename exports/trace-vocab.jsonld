@@ -90,11 +90,32 @@
             "rdfs:comment": "An attribute of a TRS."
         },
         {
+            "@id": "trov:TRPAttribute",
+            "@type": "rdfs:Class",
+            "rdfs:label": "TRPAttribute",
+            "rdfs:subClassOf": { "@id": "trov:TREAttribute" },
+            "rdfs:comment": "An attribute of a TRP."
+        },
+        {
             "@id": "trov:IncludesAllInputData",
             "@type": "rdfs:Class",
             "rdfs:label": "IncludesAllInputData",
             "rdfs:subClassOf": { "@id": "trov:TROAttribute" },
             "rdfs:comment": "TRO composition includes all input data employed in creating the TRO."
+        },
+        {
+            "@id": "trov:InternetIsolation",
+            "@type": "rdfs:Class",
+            "rdfs:label": "InternetIsolation",
+            "rdfs:subClassOf": { "@id": "trov:TRPAttribute" },
+            "rdfs:comment": "A TRO requires internet isolation."
+        },
+        {
+            "@id": "trov:InternetAccessRecording",
+            "@type": "rdfs:Class",
+            "rdfs:label": "InternetAccessRecording",
+            "rdfs:subClassOf": { "@id": "trov:TRPAttribute" },
+            "rdfs:comment": "A TRO requires internet access recording."
         },
         {
             "@id": "trov:ResearchArtifact",
@@ -132,6 +153,7 @@
             "@id": "trov:ArtifactArrangement",
             "@type": "rdfs:Class",
             "rdfs:label": "ArtifactArrangement",
+            "rdfs:subClassOf": { "@id": "trov:TransparentResearchObject" },
             "rdfs:comment": "A set of loci describing the location of one or more artifacts"
         },
         {
@@ -148,11 +170,60 @@
             "rdfs:range": { "@id": "trov:TRSCapability" }
         },
         {
+            "@id": "trov:warrantedBy",
+            "@type": "rdf:Property",
+            "rdfs:label": "warrantedBy",
+            "rdfs:domain": { "@id": "trov:TRPAttribute" },
+            "rdfs:range": { "@id": "trov:TRSCapability" }
+        },
+        {
+            "@id": "trov:warrantedBy",
+            "@type": "rdf:Property",
+            "rdfs:label": "warrantedBy",
+            "rdfs:domain": { "@id": "trov:TROAttribute" },
+            "rdfs:range": { "@id": "trov:TRPAttribute" }
+        },
+        {
             "@id": "trov:wasAssembledBy",
             "@type": "rdf:Property",
             "rdfs:label": "wasAssembledBy",
             "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
             "rdfs:range": { "@id": "trov:TransparentResearchSystem" }
+        },
+        {
+            "@id": "trov:wasConductedBy",
+            "@type": "rdf:Property",
+            "rdfs:label": "wasConductedBy",
+            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
+            "rdfs:range": { "@id": "trov:TransparentResearchSystem" }
+        },
+        {
+            "@id": "trov:hadPerformanceAttribute",
+            "@type": "rdf:Property",
+            "rdfs:label": "hadPerformanceAttribute",
+            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
+            "rdfs:range": { "@id": "trov:TRPAttribute" }
+        },
+        {
+            "@id": "trov:accessedArrangement",
+            "@type": "rdf:Property",
+            "rdfs:label": "accessedArrangement",
+            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
+            "rdfs:range": { "@id": "trov:ArtifactArrangement" }
+        },
+        {
+            "@id": "trov:contributedToArrangement",
+            "@type": "rdf:Property",
+            "rdfs:label": "contributedToArrangement",
+            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
+            "rdfs:range": { "@id": "trov:ArtifactArrangement" }
+        },
+        {
+            "@id": "trov:hasPerformance",
+            "@type": "rdf:Property",
+            "rdfs:label": "hasPerformance",
+            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
+            "rdfs:range": { "@id": "trov:TransparentResearchPerformance" }
         },
         {
             "@id": "trov:wasTimestampedBy",

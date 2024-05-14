@@ -8,8 +8,11 @@
     ArtifactComposition -> ArtifactCollection                            
     ArtifactLocus -> ArtifactCollection                            
     TROAttribute -> TREAttribute                            
+    TRPAttribute -> TREAttribute                            
     TRSAttribute -> TREAttribute                            
     IncludesAllInputData -> TROAttribute                            
+    InternetAccessRecording -> TRPAttribute                            
+    InternetIsolation -> TRPAttribute                            
     TRSCapability -> TRSAttribute                            
     CanProvideInternetIsolation -> TRSCapability                            
     TRSPolicy -> TRSCapability                            
@@ -17,6 +20,7 @@
     TimeStampingAuthority -> TransparentResearchElement                            
     TransparentResearchObject -> TransparentResearchElement                            
     TransparentResearchPerformance -> TransparentResearchElement                            
-    TransparentResearchSystem -> TransparentResearchElement            
+    TransparentResearchSystem -> TransparentResearchElement                            
+    ArtifactArrangement -> TransparentResearchObject            
             
     }        
