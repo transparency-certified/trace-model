@@ -11,11 +11,5 @@ dynamic = ["dependencies"]
 dependencies = {file = ["requirements.txt"]}
 
 [project.scripts]
-format_string = "trace_model.format_string:cli"
-tro_fingerprint = "trace_model.tro_fingerprint:cli"
 tro_fingerprint_state = "trace_model.tro_fingerprint_state:cli"
 merge_states = "trace_model.merge_states:cli"
-jsonld2csv = "trace_model.jsonld2csv:cli"
-validate_jsonld = "trace_model.validate_jsonld:cli"
-validate_tro = "trace_model.validate_tro:cli"
-#geist = "geist.__main__:cli"

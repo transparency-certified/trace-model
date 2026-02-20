@@ -1,4 +1,0 @@
-TroAtt,TrpAttId,TrpAtt,TrsAttId,TrsAtt
-trov:IncludesAllInputData,trp/1/attribute/1,trov:InternetAccessRecording,trs/capability/1,trov:CanRecordInternetAccess
-trov:IncludesAllInputData,trp/2/attribute/1,trov:InternetIsolation,trs/capability/2,trov:CanProvideInternetIsolation
-trov:IncludesAllInputData,trp/3/attribute/1,trov:InternetIsolation,trs/capability/2,trov:CanProvideInternetIsolation

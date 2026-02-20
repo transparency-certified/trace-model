@@ -1,4 +1,0 @@
-Node: fp1 
-Error Message: *** Each fingerprint should have EXACTLY ONE sha256 with String format ***
-Suggested Node(s) to be Updated: sha256.fp1, sha256.fp2
-

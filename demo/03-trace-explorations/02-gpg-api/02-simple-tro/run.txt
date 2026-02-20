@@ -1,0 +1,92 @@
+======================================= bash cell | delete the gnupg home directory and keys =======================================
+
+# delete contents of GnuPG home directory for this REPRO
+gnupg-runtime.purge-keys
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+===================================== bash cell | import the private key for repro@repros.dev ======================================
+
+python3 << END_PYTHON
+
+import gnupg
+
+# read the private key from the file
+with open("data/private.asc", "r") as private_key_file:
+    private_key_text = private_key_file.read()
+
+# import the private key and trust it
+gpg = gnupg.GPG()
+gpg.import_keys(private_key_text)
+
+END_PYTHON
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+==================================== bash cell | list the imported public key using the gpg cli ====================================
+
+echo Public keys:
+echo
+gpg --list-keys
+echo
+echo Private keys:
+echo
+gpg --list-secret-keys
+echo
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+Public keys:
+
+/mnt/trace-model/.gnupg-runtime/.gnupg/pubring.kbx
+--------------------------------------------------
+pub   rsa1024 2023-10-06 [SCEA]
+      3FBDD6190FDBC42C908F203C518F156DCC494DFF
+uid           [ unknown] repro user <repro@repros.dev>
+
+
+Private keys:
+
+/mnt/trace-model/.gnupg-runtime/.gnupg/pubring.kbx
+--------------------------------------------------
+sec   rsa1024 2023-10-06 [SCEA]
+      3FBDD6190FDBC42C908F203C518F156DCC494DFF
+uid           [ unknown] repro user <repro@repros.dev>
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+========================== bash cell | sign and verify the tro.jsonld for repro@repros.dev (detach=True) ===========================
+
+python3 << END_PYTHON
+
+import gnupg
+
+# Read the message from the file
+with open("../../common/tro/tro.jsonld", "r") as tro_declaration_file:
+    tro_declaration_text = bytes(tro_declaration_file.read(), "utf-8")
+
+# Sign the message with the private key
+gpg = gnupg.GPG()
+signed_text = gpg.sign(tro_declaration_text, keyid="repro@repros.dev", passphrase="repro", detach=True)
+
+# Write the signed message to a file
+with open("tmp/signature.asc", "w") as text_file:
+    text_file.write(str(signed_text))
+verified = gpg.verify_data("tmp/signature.asc", tro_declaration_text)
+if not verified: 
+    raise ValueError("Signature could not be verified!")
+else:
+    print("Signature has been verified successfully!")
+
+END_PYTHON
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+Signature has been verified successfully!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+

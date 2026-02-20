@@ -8,7 +8,7 @@ def compute_fingerprint_state(arg_dir, arg_file, arg_c):
     file_paths = []
     if arg_dir != None:
         for dir in arg_dir.split(","):
-            for path in glob.glob(dir + "/**/*", recursive=True): # Include files in sub-directories as well
+            for path in sorted(glob.glob(dir + "/**/*", recursive=True)): # Include files in sub-directories as well
                 if not os.path.isdir(path): # Exclude directories
                     file_paths.append(path)
     if arg_file != None:

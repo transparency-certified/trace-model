@@ -1,0 +1,67 @@
+============================================= bash cell | delete gnupg home directory ==============================================
+
+# delete contents of the .gnupg directory for this REPRO
+gnupg-runtime.purge-keys
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+============================================= bash cell | create gnupg home directory ==============================================
+
+# list the gpg keys to force creation of the gpg home directory
+gpg --list-keys 2>&1
+
+# show that the default keyring and trust database were created
+echo
+tree -a ${GNUPGHOME}
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+gpg: directory '/mnt/trace-model/.gnupg-runtime/.gnupg' created
+gpg: keybox '/mnt/trace-model/.gnupg-runtime/.gnupg/pubring.kbx' created
+gpg: /mnt/trace-model/.gnupg-runtime/.gnupg/trustdb.gpg: trustdb created
+
+/mnt/trace-model/.gnupg-runtime/.gnupg
+|-- pubring.kbx
+`-- trustdb.gpg
+
+0 directories, 2 files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+==================================================== bash cell | generate a key ====================================================
+
+gpg --batch --generate-key << END_GPG_INPUT
+Key-Type: RSA
+Key-Length: 1024
+Name-Real: repro user
+Name-Email: repro@repros.dev
+Passphrase: repro
+END_GPG_INPUT
+
+# list the gpg keys
+gpg --list-keys | grep uid
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+uid           [ultimate] repro user <repro@repros.dev>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+================================================ bash cell | export the public key =================================================
+
+# export the public key
+gpg --export -a -o tmp/public.gpg repro@repros.dev
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+================================================ bash cell | export the private key ================================================
+
+# export the private key
+gpg --export-secret-key -a --pinentry-mode loopback --passphrase=repro > tmp/private.asc
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+

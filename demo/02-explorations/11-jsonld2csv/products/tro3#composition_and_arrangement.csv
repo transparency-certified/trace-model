@@ -1,7 +1,0 @@
-ArtifactId,Digest,MimeType,arrangement/1,arrangement/2,arrangement/3,arrangement/4
-composition/1/artifact/1,b02edb8d27cf9ac19087938dd3d306895e208bd3a9f0458e63292ea2695a1f78,application/x-netcdf,https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc,data/lbda-v2_kddm_pmdi_2017.nc,data/lbda-v2_kddm_pmdi_2017.nc,
-composition/1/artifact/2,8fcf663f1c40cbf846d0e5a136f0797fa560545f5d8c1391a5b13406f3814ad6,text/plain,,analysis.ipynb,,
-composition/1/artifact/3,8cf4f26b27e83a967bd7ddd97a24e6d4b7a9a7a14fff7ffeb47e2fa9085bccaf,text/plain,,,analysis.ipynb,analysis.ipynb
-composition/1/artifact/4,870c9297ae7439c283697761c90028312cc0312f13182afb0a0125eb29e5f7f0,text/html,,,output/analysis.html,analysis.html
-composition/1/artifact/5,cfc6e4d5e76754d4802d42a2d6ff79a901c7f0e5daccb256cab542bb7953b2bf,image/png,,,output/histogram.png,histogram.png
-composition/1/artifact/6,e035f3af957c4f761c1d502cc28f91676fbf2bbdf5f7045a7151a6d3ff04789d,image/tiff,,,output/lbda-v2_kddm_pmdi_2017.tiff,lbda-v2_kddm_pmdi_2017.tiff

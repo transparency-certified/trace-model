@@ -1,4 +1,0 @@
-Node: arrangement/1/locus/2 
-Error Message: Value does not have class trov:ResearchArtifact
-Suggested Node(s) to be Updated: composition/1/artifact/100
-

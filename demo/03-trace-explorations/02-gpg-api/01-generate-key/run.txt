@@ -1,0 +1,71 @@
+================================================= bash cell | generate a key pair ==================================================
+
+# delete contents of GnuPG home directory for this REPRO
+gnupg-runtime.purge-keys
+
+# generate a new key pair
+python3 << END_PYTHON
+
+import gnupg
+import os
+
+gpg = gnupg.GPG()
+key_settings = gpg.gen_key_input(
+    key_type = 'RSA',
+    key_length = 1024,
+    name_real = 'repro user',
+    name_email = 'repro@repros.dev',
+    passphrase = 'repro'
+)
+key = gpg.gen_key(key_settings)
+
+END_PYTHON
+
+# list the gpg keys
+gpg --list-keys | grep uid
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+uid           [ultimate] repro user <repro@repros.dev>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+================================================ bash cell | export the public key =================================================
+
+python3 << END_PYTHON
+
+import gnupg
+
+# export the public key
+gpg = gnupg.GPG()
+public_key = gpg.export_keys('repro@repros.dev')
+
+# write the public key to a file
+with open("tmp/public.gpg", "w") as text_file:
+    text_file.write(public_key)
+
+END_PYTHON
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+================================================ bash cell | export the private key ================================================
+
+python3 << END_PYTHON
+
+import gnupg
+
+# export the public key
+gpg = gnupg.GPG()
+private_key = gpg.export_keys('repro@repros.dev', secret=True, passphrase='repro')
+
+# write the private key to a file
+with open("tmp/private.asc", "w") as text_file:
+    text_file.write(private_key)
+
+END_PYTHON
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+

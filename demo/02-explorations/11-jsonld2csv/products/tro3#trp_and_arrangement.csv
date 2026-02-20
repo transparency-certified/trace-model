@@ -1,4 +1,0 @@
-TrpId,TrpComment,TrsId,StartedAtTime,EndedAtTime,accessedArrangementId,contributedToArrangementId
-trp/1,Process that downloaded the LBDA NetCDF file from NOAA server to local filesystem,trs,2023-05-08T01:30:00Z,2023-05-08T01:40:00Z,arrangement/1,arrangement/2
-trp/2,Process that ran Jupyter notebook,trs,2023-05-08T01:41:00Z,2023-05-08T01:50:00Z,arrangement/2,arrangement/3
-trp/3,Process that packaged products of the Jupyter notebook execution in a Zip file,trs,2023-05-08T01:51:00Z,2023-05-08T02:00:00Z,arrangement/3,arrangement/4

@@ -4,8 +4,9 @@ rdflib
 owlrl
 pyshacl
 pygraphviz
-rdfvr
+rdfvr==0.3.0
 jinja2
 jinja2_simple_tags
 tabulate
-geist-p@git+https://github.com/CIRSS/geist-p
+PyLD
+geist-p@git+https://github.com/CIRSS/geist-p@v0.2.0

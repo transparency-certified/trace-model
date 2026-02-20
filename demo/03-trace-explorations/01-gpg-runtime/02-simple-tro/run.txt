@@ -1,0 +1,74 @@
+============================================= bash cell | delete gnupg home directory ==============================================
+
+# delete contents of the .gnupg directory for this REPRO
+gnupg-runtime.purge-keys
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+==================================================== bash cell | import jsonld =====================================================
+
+# Import TRO as JSON-LD and export as N-TRIPLES
+geist destroy rdflib --dataset kb --quiet
+geist create rdflib --dataset kb --inputformat json-ld --inputfile ../../common/tro/tro.jsonld --infer owl
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+===================================== bash cell | import the private key for repro@repros.dev ======================================
+
+# delete contents of the .gnupg directory for this REPRO
+gnupg-runtime.purge-keys
+
+# import the private key file
+gpg --import --pinentry-mode loopback --passphrase=repro data/private.asc 2>&1
+echo
+
+# list the gpg keys
+gpg --list-keys
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+gpg: directory '/mnt/trace-model/.gnupg-runtime/.gnupg' created
+gpg: keybox '/mnt/trace-model/.gnupg-runtime/.gnupg/pubring.kbx' created
+gpg: /mnt/trace-model/.gnupg-runtime/.gnupg/trustdb.gpg: trustdb created
+gpg: key 518F156DCC494DFF: public key "repro user <repro@repros.dev>" imported
+gpg: key 518F156DCC494DFF: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+
+/mnt/trace-model/.gnupg-runtime/.gnupg/pubring.kbx
+--------------------------------------------------
+pub   rsa1024 2023-10-06 [SCEA]
+      3FBDD6190FDBC42C908F203C518F156DCC494DFF
+uid           [ unknown] repro user <repro@repros.dev>
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+==================================== bash cell | sign the tro.jsonld file with the private key =====================================
+
+rm -f tmp/signature.asc
+gpg --detach-sign --local-user repro@repros.dev     --pinentry-mode loopback --passphrase=repro     -a -o tmp/signature.asc                 ../../common/tro/tro.jsonld 2>&1
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+======================================= bash cell | verify the signature with the public key =======================================
+
+gpg -v --verify tmp/signature.asc ../../common/tro/tro.jsonld 2>&1 | tail -6
+
+----------------------------------------------------------- cell outputs -----------------------------------------------------------
+gpg: using pgp trust model
+gpg: Good signature from "repro user <repro@repros.dev>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 3FBD D619 0FDB C42C 908F  203C 518F 156D CC49 4DFF
+gpg: binary signature, digest algorithm SHA512, key algorithm rsa1024
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+

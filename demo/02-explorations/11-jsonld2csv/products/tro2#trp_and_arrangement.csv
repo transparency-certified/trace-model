@@ -1,2 +1,0 @@
-TrpId,TrpComment,TrsId,StartedAtTime,EndedAtTime,accessedArrangementId,contributedToArrangementId
-trp/1,Workflow execution,trs,2023-05-05T01:30:00Z,2023-05-05T01:40:00Z,arrangement/1,arrangement/2

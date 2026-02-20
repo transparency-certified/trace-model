@@ -1,4 +1,0 @@
-ArtifactId,Digest,MimeType,arrangement/1,arrangement/2
-composition/1/artifact/1,b5bb9d8014a0f9b1d61e21e796d78dccdf1352f23cd32812f4850b878ae4944c,text/plain,file1,
-composition/1/artifact/2,7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730,text/plain,file2,file2
-composition/1/artifact/3,7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730,text/plain,,file3
