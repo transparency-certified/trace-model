@@ -71,7 +71,7 @@
             "trov:hasArtifact": [
                 {
                     "@id": "composition/1/artifact/1",
-                    "@type": "trov:DataArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "LBDA NetCDF file",
                     "rdfs:comment": "NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset",
                     "trov:mimeType": "application/x-netcdf",
@@ -79,7 +79,7 @@
                 },
                 {
                     "@id": "composition/1/artifact/2",
-                    "@type": "trov:ComputationalNotebookArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "Initial Notebook",
                     "rdfs:comment": "Initial state of Jupyter notebook for processing the LBDA dataset",
                     "trov:mimeType": "text/plain",
@@ -87,7 +87,7 @@
                 },
                 {
                     "@id": "composition/1/artifact/3",
-                    "@type": "trov:ComputationalNotebookArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "Final Notebook",
                     "rdfs:comment": "Final state of Jupyter notebook for processing the LBDA dataset",
                     "trov:mimeType": "text/plain",
@@ -95,7 +95,7 @@
                 },
                 {
                     "@id": "composition/1/artifact/4",
-                    "@type": "trov:HTMLArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "Final Notebook HTML Rendering",
                     "rdfs:comment": "HTML rendering of final state of the Jupyter notebook",
                     "trov:mimeType": "text/html",
@@ -103,7 +103,7 @@
                 },
                 {
                     "@id": "composition/1/artifact/5",
-                    "@type": "trov:ImageArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "Graphical Histogram Rendering",
                     "rdfs:comment": "Graphical rendering of the histogram of dataset values",
                     "trov:mimeType": "image/png",
@@ -111,7 +111,7 @@
                 },
                 {
                     "@id": "composition/1/artifact/6",
-                    "@type": "trov:DataArtifact",
+                    "@type": "trov:ResearchArtifact",
                     "rdfs:label": "LBDA GeoTIFF file",
                     "rdfs:comment": "GeoTIFF file containing LBDA data cube ready for staging to SKOPE server",
                     "trov:mimeType": "image/tiff",
@@ -123,7 +123,7 @@
         "trov:hasArrangement": [
             {
                 "@id": "arrangement/1",
-                "@type": "trov:WebResourceArtifactArrangement",
+                "@type": "trov:ArtifactArrangement",
                 "rdfs:label": "Web Resource Artifact Arrangement",
                 "rdfs:comment": "Arrangement describing location of LBDA NetCDF file on NOAA web server",
                 "trov:hasArtifactLocation": [
@@ -138,7 +138,7 @@
             },
             {
                 "@id": "arrangement/2",
-                "@type": "trov:LocalFilesystemArtifactArrangement",
+                "@type": "trov:ArtifactArrangement",
                 "rdfs:label": "Local File System Artifact Arrangement",
                 "rdfs:comment": "Arrangement on fileserver managed by TRS after downloading dataset and before running Jupyter notebook",
                 "trov:hasArtifactLocation": [
@@ -160,7 +160,7 @@
             },
             {
                 "@id": "arrangement/3",
-                "@type": "trov:LocalFilesystemArtifactArrangement",
+                "@type": "trov:ArtifactArrangement",
                 "rdfs:label": "Local File System Artifact Arrangement",
                 "rdfs:comment": "Arrangement on fileserver managed by TRS after running Jupyter notebook",
                 "trov:hasArtifactLocation": [
@@ -203,7 +203,7 @@
             },
             {
                 "@id": "arrangement/4",
-                "@type": "trov:ZipArtifactArrangement",
+                "@type": "trov:ArtifactArrangement",
                 "rdfs:label": "Zip Artifact Arrangement",
                 "rdfs:comment": "Arrangement of final products packaged in a Zip file",
                 "trov:hasArtifactLocation": [
