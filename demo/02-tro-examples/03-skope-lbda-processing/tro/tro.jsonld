@@ -2,8 +2,8 @@
     "@context": [{
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "schema": "https://schema.org",
-        "trov": "https://w3id.org/trace/2023/05/trov#",
+        "schema": "https://schema.org/",
+        "trov": "https://w3id.org/trace/trov/0.1#",
         "@base": "https://github.com/transparency-certified/trace-model/tree/master/02-tro-examples/03-skope-/"
     }],
 
@@ -18,7 +18,7 @@
 
         "trov:wasAssembledBy": {
             "@id": "trs",
-            "@type": "trov:TransparentResearchSystem",
+            "@type": "trov:TrustedResearchSystem",
             "schema:publisher": "TRACE Project",
             "rdfs:label": "TRACE Reference Implementation",
             "rdfs:comment": "TRS that can monitor netowrk accesses or provide Internet isolation",
@@ -242,7 +242,7 @@
         "trov:hasPerformance": [
             {
                 "@id": "trp/1",
-                "@type": "trov:TransparentResearchPerformance",
+                "@type": "trov:TrustedResearchPerformance",
                 "rdfs:comment": "Process that downloaded the LBDA NetCDF file from NOAA server to local filesystem",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:30:00Z",
@@ -258,7 +258,7 @@
 
             {
                 "@id": "trp/2",
-                "@type": "trov:TransparentResearchPerformance",
+                "@type": "trov:TrustedResearchPerformance",
                 "rdfs:comment": "Process that ran Jupyter notebook",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:41:00Z",
@@ -274,7 +274,7 @@
 
             {
                 "@id": "trp/3",
-                "@type": "trov:TransparentResearchPerformance",
+                "@type": "trov:TrustedResearchPerformance",
                 "rdfs:comment": "Process that packaged products of the Jupyter notebook execution in a Zip file",
                 "trov:wasConductedBy": { "@id": "trs" },
                 "trov:startedAtTime": "2023-05-08T01:51:00Z",

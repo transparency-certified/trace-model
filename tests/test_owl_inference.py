@@ -5,7 +5,7 @@ import pytest
 from rdflib import Graph, Namespace, RDF, RDFS
 from owlrl import DeductiveClosure, OWLRL_Semantics
 
-TROV = Namespace("https://w3id.org/trace/2023/05/trov#")
+TROV = Namespace("https://w3id.org/trace/trov/0.1#")
 
 DEMO_DIR = Path(__file__).parent.parent / "demo" / "02-tro-examples"
 EXPORTS_DIR = Path(__file__).parent.parent / "exports"
@@ -58,16 +58,12 @@ class TestExample01WithInference:
             DEMO_DIR / "01-two-artifacts-no-trp" / "tro" / "tro.jsonld",
         )
 
-    def test_tro_entailed_as_transparent_research_element(self, graph):
-        """The TRO instance should be entailed as a TransparentResearchElement
+    def test_tro_entailed_as_trusted_research_element(self, graph):
+        """The TRO instance should be entailed as a TrustedResearchElement
         via subClassOf on TransparentResearchObject."""
         tros = list(graph.subjects(RDF.type, TROV.TransparentResearchObject))
-        # KNOWN BUG: trace-vocab.jsonld declares ArtifactArrangement as
-        # subClassOf TransparentResearchObject, so arrangements get
-        # incorrectly entailed as TROs. Expect 2 until vocab is fixed.
-        assert len(tros) == 2
-        tro = [t for t in tros if str(t).endswith("/tro")][0]
-        assert (tro, RDF.type, TROV.TransparentResearchElement) in graph
+        assert len(tros) == 1
+        assert (tros[0], RDF.type, TROV.TrustedResearchElement) in graph
 
     def test_composition_entailed_as_artifact_collection(self, graph):
         """ArtifactComposition instances should be entailed as ArtifactCollection."""
@@ -78,7 +74,7 @@ class TestExample01WithInference:
     def test_tsa_entailed_as_transparent_research_element(self, graph):
         tsas = list(graph.subjects(RDF.type, TROV.TimeStampingAuthority))
         assert len(tsas) == 1
-        assert (tsas[0], RDF.type, TROV.TransparentResearchElement) in graph
+        assert (tsas[0], RDF.type, TROV.TrustedResearchElement) in graph
 
 
 class TestExample02WithInference:
@@ -128,14 +124,11 @@ class TestExample02WithInference:
 
     def test_range_entailment_wasAssembledBy(self, graph):
         """Using trov:wasAssembledBy should entail the object is a
-        TransparentResearchSystem (via rdfs:range in the vocab).
-        NOTE: the vocab currently uses TransparentResearchSystem where
-        it should say TrustedResearchSystem — this test documents the
-        current (incorrect) state."""
+        TrustedResearchSystem (via rdfs:range in the vocab)."""
         objects = list(graph.objects(None, TROV.wasAssembledBy))
         assert len(objects) >= 1
         for o in objects:
-            assert (o, RDF.type, TROV.TransparentResearchSystem) in graph
+            assert (o, RDF.type, TROV.TrustedResearchSystem) in graph
 
 
 class TestExample03WithInference:

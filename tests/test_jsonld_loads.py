@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from rdflib import Graph, Namespace, RDF
 
-TROV = Namespace("https://w3id.org/trace/2023/05/trov#")
+TROV = Namespace("https://w3id.org/trace/trov/0.1#")
 
 DEMO_DIR = Path(__file__).parent.parent / "demo" / "02-tro-examples"
 EXPORTS_DIR = Path(__file__).parent.parent / "exports"

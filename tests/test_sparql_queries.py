@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from rdflib import Graph, Namespace, RDF
 
-TROV = Namespace("https://w3id.org/trace/2023/05/trov#")
+TROV = Namespace("https://w3id.org/trace/trov/0.1#")
 
 DEMO_DIR = Path(__file__).parent.parent / "demo" / "02-tro-examples"
 EXPORTS_DIR = Path(__file__).parent.parent / "exports"
@@ -13,7 +13,7 @@ VOCAB_PATH = EXPORTS_DIR / "trace-vocab.jsonld"
 PREFIXES = """
     PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    PREFIX trov: <https://w3id.org/trace/2023/05/trov#>
+    PREFIX trov: <https://w3id.org/trace/trov/0.1#>
 """
 
 
@@ -96,7 +96,7 @@ class TestExample02Queries:
         results = list(graph.query(PREFIXES + """
             SELECT ?trs ?capability ?capType
             WHERE {
-                ?trs rdf:type trov:TransparentResearchSystem .
+                ?trs rdf:type trov:TrustedResearchSystem .
                 ?trs trov:hasCapability ?capability .
                 ?capability rdf:type ?capType .
             }
@@ -108,17 +108,12 @@ class TestExample02Queries:
         results = list(graph.query(PREFIXES + """
             SELECT ?trp ?in ?out
             WHERE {
-                ?trp rdf:type trov:TransparentResearchPerformance .
+                ?trp rdf:type trov:TrustedResearchPerformance .
                 ?trp trov:accessedArrangement ?in .
                 ?trp trov:contributedToArrangement ?out .
             }
             ORDER BY ?trp
         """))
-        # KNOWN BUG: example uses modifiedArrangement instead of
-        # contributedToArrangement, so this returns 0 results
-        if len(results) == 0:
-            pytest.xfail("Example uses trov:modifiedArrangement "
-                         "instead of trov:contributedToArrangement")
         assert len(results) == 1
 
     def test_find_warrant_chain(self, graph):
@@ -143,7 +138,7 @@ class TestExample02Queries:
         results = list(graph.query(PREFIXES + """
             SELECT ?trp ?start ?end
             WHERE {
-                ?trp rdf:type trov:TransparentResearchPerformance .
+                ?trp rdf:type trov:TrustedResearchPerformance .
                 ?trp trov:startedAtTime ?start .
                 ?trp trov:endedAtTime ?end .
             }
@@ -166,7 +161,7 @@ class TestExample03Queries:
             WHERE {
                 ?tro rdf:type trov:TransparentResearchObject .
                 ?tro trov:wasAssembledBy ?trs .
-                ?trs rdf:type trov:TransparentResearchSystem .
+                ?trs rdf:type trov:TrustedResearchSystem .
             }
             ORDER BY ?tro ?trs
         """))
@@ -177,7 +172,7 @@ class TestExample03Queries:
         results = list(graph.query(PREFIXES + """
             SELECT DISTINCT ?trs ?capability_id ?capability_type
             WHERE {
-                ?trs rdf:type trov:TransparentResearchSystem .
+                ?trs rdf:type trov:TrustedResearchSystem .
                 ?trs trov:hasCapability ?capability_id .
                 ?capability_id rdf:type ?capability_type .
             }
@@ -193,7 +188,7 @@ class TestExample03Queries:
         results = list(graph.query(PREFIXES + """
             SELECT DISTINCT ?trp ?in ?out
             WHERE {
-                ?trp rdf:type trov:TransparentResearchPerformance .
+                ?trp rdf:type trov:TrustedResearchPerformance .
                 ?trp trov:accessedArrangement ?in .
                 ?trp trov:contributedToArrangement ?out .
             }
@@ -243,7 +238,7 @@ class TestExample03Queries:
         results = list(graph.query(PREFIXES + """
             SELECT DISTINCT ?trp ?description ?start ?end
             WHERE {
-                ?trp rdf:type trov:TransparentResearchPerformance .
+                ?trp rdf:type trov:TrustedResearchPerformance .
                 ?trp rdfs:comment ?description .
                 ?trp trov:startedAtTime ?start .
                 ?trp trov:endedAtTime ?end .
@@ -262,7 +257,7 @@ class TestExample03Queries:
         results = list(graph.query(PREFIXES + """
             SELECT ?trp ?in ?out
             WHERE {
-                ?trp rdf:type trov:TransparentResearchPerformance .
+                ?trp rdf:type trov:TrustedResearchPerformance .
                 ?trp trov:accessedArrangement ?in .
                 ?trp trov:contributedToArrangement ?out .
             }

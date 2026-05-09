@@ -2,7 +2,7 @@
     "@context": [{
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "trov": "https://w3id.org/trace/2023/05/trov#",
+        "trov": "https://w3id.org/trace/trov/0.1#",
         "@base": "https://github.com/transparency-certified/trace-model/tree/master/02-tro-examples/02-three-artifacts-one-trp/"
     }],
 
