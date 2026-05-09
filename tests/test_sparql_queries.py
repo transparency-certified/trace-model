@@ -44,12 +44,13 @@ class TestExample01Queries:
 
     def test_find_artifacts(self, graph):
         results = list(graph.query(PREFIXES + """
-            SELECT ?artifact ?mimeType ?sha256
+            SELECT ?artifact ?mimeType ?hashValue
             WHERE {
                 ?comp rdf:type trov:ArtifactComposition .
                 ?comp trov:hasArtifact ?artifact .
                 ?artifact trov:mimeType ?mimeType .
-                ?artifact trov:sha256 ?sha256 .
+                ?artifact trov:hash ?h .
+                ?h trov:hashValue ?hashValue .
             }
             ORDER BY ?artifact
         """))
@@ -64,8 +65,8 @@ class TestExample01Queries:
             WHERE {
                 ?arrangement rdf:type trov:ArtifactArrangement .
                 ?arrangement trov:hasArtifactLocation ?loc .
-                ?loc trov:hasArtifact ?artifact .
-                ?loc trov:hasLocation ?location .
+                ?loc trov:artifact ?artifact .
+                ?loc trov:path ?location .
             }
             ORDER BY ?arrangement ?location
         """))
@@ -75,11 +76,12 @@ class TestExample01Queries:
 
     def test_find_fingerprint(self, graph):
         results = list(graph.query(PREFIXES + """
-            SELECT ?comp ?sha256
+            SELECT ?comp ?hashValue
             WHERE {
                 ?comp rdf:type trov:ArtifactComposition .
                 ?comp trov:hasFingerprint ?fp .
-                ?fp trov:sha256 ?sha256 .
+                ?fp trov:hash ?h .
+                ?h trov:hashValue ?hashValue .
             }
         """))
         assert len(results) == 1
@@ -207,7 +209,7 @@ class TestExample03Queries:
                 ?tro rdf:type trov:TransparentResearchObject .
                 ?tro trov:hasArrangement ?arrangement .
                 ?arrangement trov:hasArtifactLocation ?loc .
-                ?loc trov:hasArtifact ?artifact .
+                ?loc trov:artifact ?artifact .
             }
             ORDER BY ?arrangement ?artifact
         """))
@@ -218,12 +220,13 @@ class TestExample03Queries:
     def test_query_artifact_details(self, graph):
         """Replicate query_artifact_str from templates.geist."""
         results = list(graph.query(PREFIXES + """
-            SELECT DISTINCT ?artifact ?mimeType ?sha256
+            SELECT DISTINCT ?artifact ?mimeType ?hashValue
             WHERE {
                 ?comp rdf:type trov:ArtifactComposition .
                 ?comp trov:hasArtifact ?artifact .
                 ?artifact trov:mimeType ?mimeType .
-                ?artifact trov:sha256 ?sha256 .
+                ?artifact trov:hash ?h .
+                ?h trov:hashValue ?hashValue .
             }
             ORDER BY ?artifact
         """))

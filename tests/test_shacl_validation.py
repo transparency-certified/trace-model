@@ -67,7 +67,7 @@ class TestShaclCatchesErrors:
         g = Graph()
         g.parse(data='''{
             "@context": [{
-                "trov": "https://w3id.org/trace/2023/05/trov#",
+                "trov": "https://w3id.org/trace/trov/0.1#",
                 "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
             }],
             "@graph": [{
@@ -75,7 +75,7 @@ class TestShaclCatchesErrors:
                 "@type": "trov:TransparentResearchObject",
                 "trov:wasAssembledBy": {
                     "@id": "http://example.org/trs/1",
-                    "@type": "trov:TransparentResearchSystem",
+                    "@type": "trov:TrustedResearchSystem",
                     "trov:publicKey": "fake-key"
                 },
                 "trov:hasArrangement": {
@@ -84,8 +84,8 @@ class TestShaclCatchesErrors:
                     "trov:hasArtifactLocation": {
                         "@id": "http://example.org/loc/1",
                         "@type": "trov:ArtifactLocation",
-                        "trov:hasArtifact": { "@id": "http://example.org/art/1" },
-                        "trov:hasLocation": "file1"
+                        "trov:artifact": { "@id": "http://example.org/art/1" },
+                        "trov:path": "file1"
                     }
                 }
             }]
@@ -97,12 +97,12 @@ class TestShaclCatchesErrors:
         g = Graph()
         g.parse(data='''{
             "@context": [{
-                "trov": "https://w3id.org/trace/2023/05/trov#",
+                "trov": "https://w3id.org/trace/trov/0.1#",
                 "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
             }],
             "@graph": [{
                 "@id": "http://example.org/trs/1",
-                "@type": "trov:TransparentResearchSystem",
+                "@type": "trov:TrustedResearchSystem",
                 "rdfs:comment": "TRS with no public key"
             }]
         }''', format="json-ld")
@@ -113,7 +113,7 @@ class TestShaclCatchesErrors:
         g = Graph()
         g.parse(data='''{
             "@context": [{
-                "trov": "https://w3id.org/trace/2023/05/trov#"
+                "trov": "https://w3id.org/trace/trov/0.1#"
             }],
             "@graph": [{
                 "@id": "http://example.org/comp/1",
@@ -121,7 +121,7 @@ class TestShaclCatchesErrors:
                 "trov:hasArtifact": {
                     "@id": "http://example.org/art/1",
                     "@type": "trov:ResearchArtifact",
-                    "trov:sha256": "abc123",
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "abc123" },
                     "trov:mimeType": "text/plain"
                 }
             }]

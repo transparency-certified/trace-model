@@ -65,7 +65,7 @@
             "trov:hasFingerprint":     {
                 "@id": "fingerprint",
                 "@type": "trov:CompositionFingerprint",
-                "trov:sha256": "b2b65040893f35d112979c564121c7425f4aad10838aadcb232be5db715ec2b2"
+                "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "b2b65040893f35d112979c564121c7425f4aad10838aadcb232be5db715ec2b2" }
             },
 
             "trov:hasArtifact": [
@@ -75,7 +75,7 @@
                     "rdfs:label": "LBDA NetCDF file",
                     "rdfs:comment": "NetCDF file containing the Living Blended Drought Atlas (LBDA) dataset",
                     "trov:mimeType": "application/x-netcdf",
-                    "trov:sha256": "b02edb8d27cf9ac19087938dd3d306895e208bd3a9f0458e63292ea2695a1f78"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "b02edb8d27cf9ac19087938dd3d306895e208bd3a9f0458e63292ea2695a1f78" }
                 },
                 {
                     "@id": "composition/1/artifact/2",
@@ -83,7 +83,7 @@
                     "rdfs:label": "Initial Notebook",
                     "rdfs:comment": "Initial state of Jupyter notebook for processing the LBDA dataset",
                     "trov:mimeType": "text/plain",
-                    "trov:sha256": "8fcf663f1c40cbf846d0e5a136f0797fa560545f5d8c1391a5b13406f3814ad6"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "8fcf663f1c40cbf846d0e5a136f0797fa560545f5d8c1391a5b13406f3814ad6" }
                 },
                 {
                     "@id": "composition/1/artifact/3",
@@ -91,7 +91,7 @@
                     "rdfs:label": "Final Notebook",
                     "rdfs:comment": "Final state of Jupyter notebook for processing the LBDA dataset",
                     "trov:mimeType": "text/plain",
-                    "trov:sha256": "8cf4f26b27e83a967bd7ddd97a24e6d4b7a9a7a14fff7ffeb47e2fa9085bccaf"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "8cf4f26b27e83a967bd7ddd97a24e6d4b7a9a7a14fff7ffeb47e2fa9085bccaf" }
                 },
                 {
                     "@id": "composition/1/artifact/4",
@@ -99,7 +99,7 @@
                     "rdfs:label": "Final Notebook HTML Rendering",
                     "rdfs:comment": "HTML rendering of final state of the Jupyter notebook",
                     "trov:mimeType": "text/html",
-                    "trov:sha256": "870c9297ae7439c283697761c90028312cc0312f13182afb0a0125eb29e5f7f0"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "870c9297ae7439c283697761c90028312cc0312f13182afb0a0125eb29e5f7f0" }
                 },
                 {
                     "@id": "composition/1/artifact/5",
@@ -107,7 +107,7 @@
                     "rdfs:label": "Graphical Histogram Rendering",
                     "rdfs:comment": "Graphical rendering of the histogram of dataset values",
                     "trov:mimeType": "image/png",
-                    "trov:sha256": "cfc6e4d5e76754d4802d42a2d6ff79a901c7f0e5daccb256cab542bb7953b2bf"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "cfc6e4d5e76754d4802d42a2d6ff79a901c7f0e5daccb256cab542bb7953b2bf" }
                 },
                 {
                     "@id": "composition/1/artifact/6",
@@ -115,7 +115,7 @@
                     "rdfs:label": "LBDA GeoTIFF file",
                     "rdfs:comment": "GeoTIFF file containing LBDA data cube ready for staging to SKOPE server",
                     "trov:mimeType": "image/tiff",
-                    "trov:sha256": "e035f3af957c4f761c1d502cc28f91676fbf2bbdf5f7045a7151a6d3ff04789d"
+                    "trov:hash": { "trov:hashAlgorithm": "sha256", "trov:hashValue": "e035f3af957c4f761c1d502cc28f91676fbf2bbdf5f7045a7151a6d3ff04789d" }
                 }
             ]
         },
@@ -131,8 +131,8 @@
                         "@id": "arrangement/1/location/1",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
-                        "trov:hasLocation": "https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"
+                        "trov:artifact": { "@id": "composition/1/artifact/1" },
+                        "trov:path": "https://www1.ncdc.noaa.gov/pub/data/paleo/drought/LBDP-v2/lbda-v2_kddm_pmdi_2017.nc"
                     }
                 ]
             },
@@ -146,15 +146,15 @@
                         "@id": "arrangement/2/location/1",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
-                        "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
+                        "trov:artifact": { "@id": "composition/1/artifact/1" },
+                        "trov:path": "data/lbda-v2_kddm_pmdi_2017.nc"
                     },
                     {
                         "@id": "arrangement/2/location/2",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Initial Notebook",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/2" },
-                        "trov:hasLocation": "analysis.ipynb"
+                        "trov:artifact": { "@id": "composition/1/artifact/2" },
+                        "trov:path": "analysis.ipynb"
                     }
                 ]
             },
@@ -168,36 +168,36 @@
                         "@id": "arrangement/3/location/1",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA NetCDF file",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/1" },
-                        "trov:hasLocation": "data/lbda-v2_kddm_pmdi_2017.nc"
+                        "trov:artifact": { "@id": "composition/1/artifact/1" },
+                        "trov:path": "data/lbda-v2_kddm_pmdi_2017.nc"
                     },
                     {
                         "@id": "arrangement/3/location/2",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/3" },
-                        "trov:hasLocation": "analysis.ipynb"
+                        "trov:artifact": { "@id": "composition/1/artifact/3" },
+                        "trov:path": "analysis.ipynb"
                     },
                     {
                         "@id": "arrangement/3/location/3",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook HTML Rendering",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/4" },
-                        "trov:hasLocation": "output/analysis.html"
+                        "trov:artifact": { "@id": "composition/1/artifact/4" },
+                        "trov:path": "output/analysis.html"
                     },
                     {
                         "@id": "arrangement/3/location/4",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Graphical Histogram Rendering",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/5" },
-                        "trov:hasLocation": "output/histogram.png"
+                        "trov:artifact": { "@id": "composition/1/artifact/5" },
+                        "trov:path": "output/histogram.png"
                     },
                     {
                         "@id": "arrangement/3/location/5",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA GeoTIFF file",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/6" },
-                        "trov:hasLocation": "output/lbda-v2_kddm_pmdi_2017.tiff"
+                        "trov:artifact": { "@id": "composition/1/artifact/6" },
+                        "trov:path": "output/lbda-v2_kddm_pmdi_2017.tiff"
                     }
                 ]
             },
@@ -211,29 +211,29 @@
                         "@id": "arrangement/4/location/1",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/3" },
-                        "trov:hasLocation": "analysis.ipynb"
+                        "trov:artifact": { "@id": "composition/1/artifact/3" },
+                        "trov:path": "analysis.ipynb"
                     },
                     {
                         "@id": "arrangement/4/location/2",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Final Notebook HTML Rendering",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/4" },
-                        "trov:hasLocation": "analysis.html"
+                        "trov:artifact": { "@id": "composition/1/artifact/4" },
+                        "trov:path": "analysis.html"
                     },
                     {
                         "@id": "arrangement/4/location/3",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "Graphical Histogram Rendering",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/5" },
-                        "trov:hasLocation": "histogram.png"
+                        "trov:artifact": { "@id": "composition/1/artifact/5" },
+                        "trov:path": "histogram.png"
                     },
                     {
                         "@id": "arrangement/4/location/5",
                         "@type": "trov:ArtifactLocation",
                         "rdfs:label": "LBDA GeoTIFF file",
-                        "trov:hasArtifact": { "@id": "composition/1/artifact/6" },
-                        "trov:hasLocation": "lbda-v2_kddm_pmdi_2017.tiff"
+                        "trov:artifact": { "@id": "composition/1/artifact/6" },
+                        "trov:path": "lbda-v2_kddm_pmdi_2017.tiff"
                     }
                 ]
             }
