@@ -134,7 +134,7 @@
             "trov:endedAtTime": "2023-05-05T01:40:00Z",
             "trov:accessedArrangement": { "@id": "arrangement/1" },
             "trov:contributedToArrangement": { "@id": "arrangement/2" },
-            "trov:hadPerformanceAttribute": {
+            "trov:hasPerformanceAttribute": {
                 "@id": "trp/1/attribute/1",
                 "@type": "trov:InternetIsolation",
                 "trov:warrantedBy": { "@id": "trs/capability/1" }

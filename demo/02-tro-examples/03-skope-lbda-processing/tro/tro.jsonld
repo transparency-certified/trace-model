@@ -249,7 +249,7 @@
                 "trov:endedAtTime": "2023-05-08T01:40:00Z",
                 "trov:accessedArrangement": { "@id": "arrangement/1" },
                 "trov:contributedToArrangement": { "@id": "arrangement/2" },
-                "trov:hadPerformanceAttribute": {
+                "trov:hasPerformanceAttribute": {
                     "@id": "trp/1/attribute/1",
                     "@type": "trov:InternetAccessRecording",
                     "trov:warrantedBy": { "@id": "trs/capability/1" }
@@ -265,7 +265,7 @@
                 "trov:endedAtTime": "2023-05-08T01:50:00Z",
                 "trov:accessedArrangement": { "@id": "arrangement/2" },
                 "trov:contributedToArrangement": { "@id": "arrangement/3" },
-                "trov:hadPerformanceAttribute": {
+                "trov:hasPerformanceAttribute": {
                     "@id": "trp/2/attribute/1",
                     "@type": "trov:InternetIsolation",
                     "trov:warrantedBy": { "@id": "trs/capability/2" }
@@ -281,7 +281,7 @@
                 "trov:endedAtTime": "2023-05-08T02:00:00Z",
                 "trov:accessedArrangement": { "@id": "arrangement/3" },
                 "trov:contributedToArrangement": { "@id": "arrangement/4" },
-                "trov:hadPerformanceAttribute": {
+                "trov:hasPerformanceAttribute": {
                     "@id": "trp/3/attribute/1",
                     "@type": "trov:InternetIsolation",
                     "trov:warrantedBy": { "@id": "trs/capability/2" }
