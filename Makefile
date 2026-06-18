@@ -56,7 +56,7 @@ REPRO_LOGGING_FILENAME ?= auto
 #-  NO_LOCATIONS  : Source file locations will not be included in trace messages.
 #-  NO_APPEND     : Overwrite log file rather than appending to it.
 #
-REPRO_LOGGING_OPTIONS ?= 
+REPRO_LOGGING_OPTIONS ?= NO_LOCATIONS
 
 #- 
 #- --- REPRO_INTERACTIVE_SESSION -----------------------------------------------
@@ -166,7 +166,7 @@ build-parent:      ## Build the custom parent Docker image.
 	docker build --build-arg PARENT_BUILD_ARG_1=${PARENT_BUILD_ARG_1} --progress=${DOCKER_BUILD_PROGRESS} -f Dockerfile-parent -t ${PARENT_IMAGE} .
 
 rebuild-parent:    ## Force rebuild of the custom Docker image.
-	docker build --build-arg PARENT_BUILD_ARG_1=${PARENT_BUILD_ARG_1} --env-file=repro.env --progress=${DOCKER_BUILD_PROGRESS} --no-cache -f Dockerfile-parent -t ${PARENT_IMAGE} .
+	docker build --build-arg PARENT_BUILD_ARG_1=${PARENT_BUILD_ARG_1} --progress=${DOCKER_BUILD_PROGRESS} --no-cache -f Dockerfile-parent -t ${PARENT_IMAGE} .
 
 pull-parent:       ## Pull the custom parent image from Docker Hub.
 	docker pull ${PARENT_IMAGE}
@@ -219,8 +219,15 @@ else
 	@:
 endif
 
+# allocate a TTY only for interactive sessions
+ifeq ($(REPRO_INTERACTIVE_SESSION),false)
+DOCKER_TTY_FLAGS =
+else
+DOCKER_TTY_FLAGS = -it
+endif
+
 # define command for running the REPRO Docker image
-REPRO_RUN_COMMAND=$(QUIET)docker run -it --rm $(REPRO_DOCKER_OPTIONS)   \
+REPRO_RUN_COMMAND=$(QUIET)docker run $(DOCKER_TTY_FLAGS) --rm $(REPRO_DOCKER_OPTIONS)   \
                              --volume "$(CURDIR)":"$(REPRO_MNT)"       	\
 							 --env-file=${SESSION_ENV_FILE}						\
 							 $(REPRO_SETTINGS)							\
@@ -232,7 +239,7 @@ REPRO_RUN_COMMAND=$(QUIET)docker run -it --rm $(REPRO_DOCKER_OPTIONS)   \
 ifdef IN_RUNNING_REPRO
 RUN_IN_REPRO=$(QUIET)bash -ic
 else
-RUN_IN_REPRO=$(REPRO_RUN_COMMAND) bash -ilc
+RUN_IN_REPRO=$(REPRO_RUN_COMMAND) bash -lc
 endif
 
 ## 
@@ -258,6 +265,16 @@ ifndef IN_RUNNING_REPRO
 init-repro: session
 	$(shell $(OS_APPEND_ENV) REPRO_SERVICES_STARTUP=manual)
 	$(RUN_IN_REPRO) exit
+endif
+
+ifndef IN_RUNNING_REPRO
+## run-in-repro:      Run CMD in a non-interactive REPRO session.
+run-in-repro: DOCKER_TTY_FLAGS=
+run-in-repro: session
+	$(REPRO_RUN_COMMAND) bash -lc '$(CMD)'
+else
+run-in-repro:
+	$(TARGET_NOT_SUPPORTED_IN_RUNNING_REPRO)
 endif
 
 reset-repro: session
