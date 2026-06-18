@@ -1,6 +1,6 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix trov: <https://w3id.org/trace/2023/05/trov#> .
+@prefix trov: <https://w3id.org/trace/trov/0.1#> .
 @prefix : <https://github.com/transparency-certified/trace-model/tree/master/demo/03-trace-explorations/> .
 
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
@@ -39,7 +39,7 @@ schema:TroShape
 
 schema:TrsShape
     a sh:NodeShape ;
-    sh:targetClass trov:TransparentResearchSystem ;
+    sh:targetClass trov:TrustedResearchSystem ;
     sh:property [
         sh:path rdfs:comment ;
         sh:datatype xsd:string ;
@@ -79,10 +79,8 @@ schema:CompShape
 schema:FingerprintShape
     a sh:NodeShape ;
     sh:targetClass trov:CompositionFingerprint ;
-    sh:property [ # Each composition has at EXACTLY ONE sha256
-        sh:message "*** Each fingerprint should have EXACTLY ONE sha256 with String format ***" ;
-        sh:path trov:sha256 ;
-        sh:datatype xsd:string ;
+    sh:property [
+        sh:path trov:hash ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ] .
@@ -90,14 +88,13 @@ schema:FingerprintShape
 schema:ArtifactShape
     a sh:NodeShape ;
     sh:targetClass trov:ResearchArtifact ;
-    sh:property [ # Each artifact has at MOST ONE memeType
+    sh:property [ # Each artifact has at MOST ONE mimeType
         sh:path trov:mimeType ;
         sh:datatype xsd:string ;
         sh:maxCount 1 ;
     ] ;
-    sh:property [ # Each artifact has EXACTLY ONE sha256
-        sh:path trov:sha256 ;
-        sh:datatype xsd:string ;
+    sh:property [ # Each artifact has EXACTLY ONE hash
+        sh:path trov:hash ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ] .
@@ -115,13 +112,13 @@ schema:ArtifactLocationShape
     a sh:NodeShape ;
     sh:targetClass trov:ArtifactLocation ;
     sh:property [ # Each artifact location is linked to a valid artifact
-        sh:path trov:hasArtifact ;
+        sh:path trov:artifact ;
         sh:class trov:ResearchArtifact ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
     ] ;
-    sh:property [ # Each artifact location has EXACTLY ONE location
-        sh:path trov:hasLocation ;
+    sh:property [ # Each artifact location has EXACTLY ONE path
+        sh:path trov:path ;
         sh:datatype xsd:string ;
         sh:minCount 1 ;
         sh:maxCount 1 ;

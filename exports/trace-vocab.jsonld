@@ -1,278 +1,503 @@
 {
-    "@context": [{
+    "@context": {
+        "owl": "http://www.w3.org/2002/07/owl#",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "trov": "https://w3id.org/trace/2023/05/trov#"
-    }],
-
+        "trov": "https://w3id.org/trace/trov/0.1#"
+    },
     "@graph": [
-
-        {
-            "@id": "trov:TransparentResearchElement",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TransparentResearchElement",
-            "rdfs:comment": "Common base class for TRSs, TRPs, and TROs."
-        },
-        {
-            "@id": "trov:TransparentResearchSystem",
-            "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
-            "rdfs:label": "TransparentResearchSystem",
-            "rdfs:comment": "A system certified to perform TRPs and assemble TROs."
-        },
-        {
-            "@id": "trov:TransparentResearchPerformance",
-            "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
-            "rdfs:label": "TransparentResearchPerformance",
-            "rdfs:comment": "A set of research operations performed by a TRS."
-        },
-        {
-            "@id": "trov:TransparentResearchObject",
-            "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
-            "rdfs:label": "TransparentResearchObject",
-            "rdfs:comment": "A set of research artifacts produced by a TRP and signed by the performing TRS."
-        },
-        {
-            "@id": "trov:TimeStampingAuthority",
-            "@type": "rdfs:Class",
-            "rdfs:subClassOf": { "@id": "trov:TransparentResearchElement" },
-            "rdfs:label": "TimeStampingAuthority",
-            "rdfs:comment": "A timestamping authority trusted by a TRS."
-        },
-        {
-            "@id": "trov:TREAttribute",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TREAttribute",
-            "rdfs:comment": "An attribute of a TRS, TRP, or TRO."
-        },
-        {
-            "@id": "trov:TRSCapability",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TRSCapability",
-            "rdfs:subClassOf": { "@id": "trov:TRSAttribute" },
-            "rdfs:comment": "A capability of a TRS."
-        },
-        {
-            "@id": "trov:CanProvideInternetIsolation",
-            "@type": "rdfs:Class",
-            "rdfs:label": "CanProvideInternetIsolation",
-            "rdfs:subClassOf": { "@id": "trov:TRSCapability" },
-            "rdfs:comment": "The capability to prevent Internet access during a TRP."
-        },
         {
             "@id": "trov:TRSPolicy",
             "@type": "rdfs:Class",
+            "rdfs:comment": "A TRS-level assertion about a capability. Under redesign — see TROV vocabulary documentation.",
             "rdfs:label": "TRSPolicy",
-            "rdfs:subClassOf": { "@id": "trov:TRSCapability" },
-            "rdfs:comment": "A policy always enforced by a particular TRS."
+            "rdfs:subClassOf": {
+                "@id": "trov:TRSCapability"
+            }
         },
         {
-            "@id": "trov:EnforcesInternetIsolation",
-            "@type": "rdfs:Class",
-            "rdfs:label": "EnforcesInternetIsolation",
-            "rdfs:subClassOf": { "@id": "trov:TRSPolicy" },
-            "rdfs:comment": "The policy of always preventing Internet access during a TRP."
+            "@id": "trov:hasAttribute",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to a transparency attribute asserted for it.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "hasAttribute",
+            "rdfs:range": {
+                "@id": "trov:TROAttribute"
+            }
+        },
+        {
+            "@id": "trov:path",
+            "@type": "rdf:Property",
+            "rdfs:comment": "The resource path for the artifact within this arrangement.",
+            "rdfs:domain": {
+                "@id": "trov:ArtifactLocation"
+            },
+            "rdfs:label": "path",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
         },
         {
             "@id": "trov:TROAttribute",
             "@type": "rdfs:Class",
+            "rdfs:comment": "A transparency claim about a TRO as a whole, warranted by attributes of its constituent TRPs.",
             "rdfs:label": "TROAttribute",
-            "rdfs:subClassOf": { "@id": "trov:TREAttribute" },
-            "rdfs:comment": "An attribute of a particular TRO."
+            "rdfs:subClassOf": {
+                "@id": "trov:TREAttribute"
+            }
         },
         {
-            "@id": "trov:TRSAttribute",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TRSAttribute",
-            "rdfs:subClassOf": { "@id": "trov:TREAttribute" },
-            "rdfs:comment": "An attribute of a TRS."
-        },
-        {
-            "@id": "trov:TRPAttribute",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TRPAttribute",
-            "rdfs:subClassOf": { "@id": "trov:TREAttribute" },
-            "rdfs:comment": "An attribute of a TRP."
-        },
-        {
-            "@id": "trov:IncludesAllInputData",
-            "@type": "rdfs:Class",
-            "rdfs:label": "IncludesAllInputData",
-            "rdfs:subClassOf": { "@id": "trov:TROAttribute" },
-            "rdfs:comment": "TRO composition includes all input data employed in creating the TRO."
-        },
-        {
-            "@id": "trov:InternetIsolation",
-            "@type": "rdfs:Class",
-            "rdfs:label": "InternetIsolation",
-            "rdfs:subClassOf": { "@id": "trov:TRPAttribute" },
-            "rdfs:comment": "A TRO requires internet isolation."
-        },
-        {
-            "@id": "trov:InternetAccessRecording",
-            "@type": "rdfs:Class",
-            "rdfs:label": "InternetAccessRecording",
-            "rdfs:subClassOf": { "@id": "trov:TRPAttribute" },
-            "rdfs:comment": "A TRO requires internet access recording."
-        },
-        {
-            "@id": "trov:ResearchArtifact",
-            "@type": "rdfs:Class",
-            "rdfs:label": "ResearchArtifact",
-            "rdfs:comment": "A research artifact described by a TRO."
-        },
-        {
-            "@id": "trov:ArtifactCollection",
-            "@type": "rdfs:Class",
-            "rdfs:label": "ArtifactCollection",
-            "rdfs:comment": "Base class for collections of one or more artifacts."
-        },
-        {
-            "@id": "trov:ArtifactComposition",
-            "@type": "rdfs:Class",
-            "rdfs:label": "ArtifactComposition",
-            "rdfs:subClassOf": { "@id": "trov:ArtifactCollection" },
-            "rdfs:comment": "A set of artifacts described by a TRO."
-        },
-        {
-            "@id": "trov:CompositionFingerprint",
-            "@type": "rdfs:Class",
-            "rdfs:label": "CompositionFingerprint",
-            "rdfs:comment": "Unique fingerprint of a particular artifact composition"
-        },
-        {
-            "@id": "trov:ArtifactLocation",
-            "@type": "rdfs:Class",
-            "rdfs:label": "ArtifactLocus",
-            "rdfs:subClassOf": { "@id": "trov:ArtifactCollection" },
-            "rdfs:comment": "The location of a specific artifact."
-        },
-        {
-            "@id": "trov:ArtifactArrangement",
-            "@type": "rdfs:Class",
-            "rdfs:label": "ArtifactArrangement",
-            "rdfs:subClassOf": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:comment": "A set of loci describing the location of one or more artifacts"
-        },
-        {
-            "@id": "trov:TransparentResearchPerformance",
-            "@type": "rdfs:Class",
-            "rdfs:label": "TransparentResearchPerformance",
-            "rdfs:comment": "An execution of a research process"
-        },
-        {
-            "@id": "trov:hasCapability",
+            "@id": "trov:hash",
             "@type": "rdf:Property",
-            "rdfs:label": "hasCapability",
-            "rdfs:domain": { "@id": "trov:TransparentResearchSystem" },
-            "rdfs:range": { "@id": "trov:TRSCapability" }
-        },
-        {
-            "@id": "trov:warrantedBy",
-            "@type": "rdf:Property",
-            "rdfs:label": "warrantedBy",
-            "rdfs:domain": { "@id": "trov:TRPAttribute" },
-            "rdfs:range": { "@id": "trov:TRSCapability" }
-        },
-        {
-            "@id": "trov:warrantedBy",
-            "@type": "rdf:Property",
-            "rdfs:label": "warrantedBy",
-            "rdfs:domain": { "@id": "trov:TROAttribute" },
-            "rdfs:range": { "@id": "trov:TRPAttribute" }
-        },
-        {
-            "@id": "trov:wasAssembledBy",
-            "@type": "rdf:Property",
-            "rdfs:label": "wasAssembledBy",
-            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:TransparentResearchSystem" }
-        },
-        {
-            "@id": "trov:wasConductedBy",
-            "@type": "rdf:Property",
-            "rdfs:label": "wasConductedBy",
-            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
-            "rdfs:range": { "@id": "trov:TransparentResearchSystem" }
-        },
-        {
-            "@id": "trov:hadPerformanceAttribute",
-            "@type": "rdf:Property",
-            "rdfs:label": "hadPerformanceAttribute",
-            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
-            "rdfs:range": { "@id": "trov:TRPAttribute" }
-        },
-        {
-            "@id": "trov:accessedArrangement",
-            "@type": "rdf:Property",
-            "rdfs:label": "accessedArrangement",
-            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
-            "rdfs:range": { "@id": "trov:ArtifactArrangement" }
+            "rdfs:comment": "One or more hashes of an artifact's contents or of a composition's sorted artifact hash values.",
+            "rdfs:label": "hash"
         },
         {
             "@id": "trov:contributedToArrangement",
             "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRP to an arrangement it wrote to.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
             "rdfs:label": "contributedToArrangement",
-            "rdfs:domain": { "@id": "trov:TransparentResearchPerformance" },
-            "rdfs:range": { "@id": "trov:ArtifactArrangement" }
+            "rdfs:range": {
+                "@id": "trov:ArtifactArrangement"
+            }
         },
         {
-            "@id": "trov:hasPerformance",
-            "@type": "rdf:Property",
-            "rdfs:label": "hasPerformance",
-            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:TransparentResearchPerformance" }
+            "@id": "trov:CanProvideInternetIsolation",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The TRS can isolate computations from network access during a TRP.",
+            "rdfs:label": "CanProvideInternetIsolation",
+            "rdfs:subClassOf": {
+                "@id": "trov:TRSCapability"
+            }
         },
         {
-            "@id": "trov:wasTimestampedBy",
-            "@type": "rdf:Property",
-            "rdfs:label": "wasTimestampedBy",
-            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:TimeStampingAuthority" }
+            "@id": "trov:ArtifactArrangement",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A named collection of artifact locations. Arrangements are linked to performances as inputs or outputs.",
+            "rdfs:label": "ArtifactArrangement"
         },
         {
-            "@id": "trov:hasComposition",
-            "@type": "rdf:Property",
-            "rdfs:label": "hasComposition",
-            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:ArtifactComposition" }
-        },
-        {
-            "@id": "trov:hasFingerprint",
-            "@type": "rdf:Property",
-            "rdfs:label": "hasFingerprint",
-            "rdfs:domain": { "@id": "trov:ArtifactComposition" },
-            "rdfs:range": { "@id": "trov:CompositionFingerprint" }
-        },
-        {
-            "@id": "trov:hasArtifact",
-            "@type": "rdf:Property",
-            "rdfs:label": "hasArtifact",
-            "rdfs:domain": { "@id": "trov:ArtifactCollection" },
-            "rdfs:range": { "@id": "trov:ResearchArtifact" }
-        },
-        {
-            "@id": "trov:hasArrangement",
-            "@type": "rdf:Property",
-            "rdfs:label": "hasArrangement",
-            "rdfs:domain": { "@id": "trov:TransparentResearchObject" },
-            "rdfs:range": { "@id": "trov:ArtifactArrangement" }
+            "@id": "trov:CompositionFingerprint",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A hash computed over the sorted hashes of all artifacts in a composition.",
+            "rdfs:label": "CompositionFingerprint"
         },
         {
             "@id": "trov:hasArtifactLocation",
             "@type": "rdf:Property",
-            "rdfs:label": "hasLocus",
-            "rdfs:domain": { "@id": "trov:ArtifactArrangement" },
-            "rdfs:range": { "@id": "trov:ArtifactLocation" }
+            "rdfs:comment": "Links an arrangement to one of its artifact locations.",
+            "rdfs:domain": {
+                "@id": "trov:ArtifactArrangement"
+            },
+            "rdfs:label": "hasArtifactLocation",
+            "rdfs:range": {
+                "@id": "trov:ArtifactLocation"
+            }
         },
         {
-            "@id": "trov:hasLocation",
+            "@id": "trov:TrustedResearchPerformance",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A supervised unit of work conducted by a TRS. The centerpiece of the TRACE conceptual model.",
+            "rdfs:label": "TrustedResearchPerformance",
+            "rdfs:subClassOf": {
+                "@id": "trov:TrustedResearchElement"
+            }
+        },
+        {
+            "@id": "trov:hashAlgorithm",
             "@type": "rdf:Property",
-            "rdfs:label": "hasLocus",
-            "rdfs:domain": { "@id": "trov:ArtifactLocation" },
-            "rdfs:range": { "@id": "rdfs:Literal" }
+            "rdfs:comment": "The algorithm used to compute the hash (e.g. sha256, hmac-sha256).",
+            "rdfs:label": "hashAlgorithm",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:accessedArrangement",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRP to an arrangement it read from.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
+            "rdfs:label": "accessedArrangement",
+            "rdfs:range": {
+                "@id": "trov:ArtifactArrangement"
+            }
+        },
+        {
+            "@id": "trov:createdWith",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Software tool that generated this TRO declaration (optional).",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "createdWith"
+        },
+        {
+            "@id": "trov:ResearchArtifact",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A digital object (file, dataset, or bitstream) identified by a content hash.",
+            "rdfs:label": "ResearchArtifact"
+        },
+        {
+            "@id": "trov:ArtifactCollection",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "Base class for collections of one or more artifacts.",
+            "rdfs:label": "ArtifactCollection"
+        },
+        {
+            "@id": "trov:TREAttribute",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "Base class for attributes of a TRS, TRP, or TRO.",
+            "rdfs:label": "TREAttribute"
+        },
+        {
+            "@id": "trov:TRPAttribute",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A transparency claim about the conditions under which a specific TRP was conducted.",
+            "rdfs:label": "TRPAttribute",
+            "rdfs:subClassOf": {
+                "@id": "trov:TREAttribute"
+            }
+        },
+        {
+            "@id": "trov:mimeType",
+            "@type": "rdf:Property",
+            "rdfs:comment": "The MIME type of an artifact.",
+            "rdfs:domain": {
+                "@id": "trov:ResearchArtifact"
+            },
+            "rdfs:label": "mimeType",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "https://w3id.org/trace/trov/0.1/",
+            "@type": "owl:Ontology",
+            "owl:versionIRI": {
+                "@id": "https://w3id.org/trace/trov/0.1/"
+            },
+            "owl:versionInfo": "Version 0.1 (draft)",
+            "rdfs:comment": {
+                "@language": "en",
+                "@value": "Vocabulary for describing Transparent Research Objects (TROs), the systems that produce them, and the transparency conditions under which they were created."
+            },
+            "rdfs:label": {
+                "@language": "en",
+                "@value": "Transparent Research Object Vocabulary"
+            }
+        },
+        {
+            "@id": "trov:CanRecordInternetAccess",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The TRS can record all network accesses made during a TRP.",
+            "rdfs:label": "CanRecordInternetAccess",
+            "rdfs:subClassOf": {
+                "@id": "trov:TRSCapability"
+            }
+        },
+        {
+            "@id": "trov:InternetIsolation",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The TRP was conducted without network access.",
+            "rdfs:label": "InternetIsolation",
+            "rdfs:subClassOf": {
+                "@id": "trov:TRPAttribute"
+            }
+        },
+        {
+            "@id": "trov:startedAtTime",
+            "@type": "rdf:Property",
+            "rdfs:comment": "When the performance began.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
+            "rdfs:label": "startedAtTime",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:TimeStampingAuthority",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "An RFC 3161 timestamping authority trusted by a TRS.",
+            "rdfs:label": "TimeStampingAuthority",
+            "rdfs:subClassOf": {
+                "@id": "trov:TrustedResearchElement"
+            }
+        },
+        {
+            "@id": "trov:vocabularyVersion",
+            "@type": "rdf:Property",
+            "rdfs:comment": "The TROV vocabulary version this declaration conforms to.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "vocabularyVersion",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:endedAtTime",
+            "@type": "rdf:Property",
+            "rdfs:comment": "When the performance ended.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
+            "rdfs:label": "endedAtTime",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:ArtifactComposition",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The set of all digital artifacts described by a TRO, identified by a composition fingerprint.",
+            "rdfs:label": "ArtifactComposition",
+            "rdfs:subClassOf": {
+                "@id": "trov:ArtifactCollection"
+            }
+        },
+        {
+            "@id": "trov:hasArrangement",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to an artifact arrangement it describes.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "hasArrangement",
+            "rdfs:range": {
+                "@id": "trov:ArtifactArrangement"
+            }
+        },
+        {
+            "@id": "trov:ArtifactLocation",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The placement of a specific artifact within an arrangement. Links one artifact to one resource path.",
+            "rdfs:label": "ArtifactLocation"
+        },
+        {
+            "@id": "trov:hasArtifact",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a composition to an artifact it contains.",
+            "rdfs:domain": {
+                "@id": "trov:ArtifactComposition"
+            },
+            "rdfs:label": "hasArtifact",
+            "rdfs:range": {
+                "@id": "trov:ResearchArtifact"
+            }
+        },
+        {
+            "@id": "trov:hashValue",
+            "@type": "rdf:Property",
+            "rdfs:comment": "The computed hash value.",
+            "rdfs:label": "hashValue",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:wasConductedBy",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRP to the TRS that conducted it.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
+            "rdfs:label": "wasConductedBy",
+            "rdfs:range": {
+                "@id": "trov:TrustedResearchSystem"
+            }
+        },
+        {
+            "@id": "trov:TrustedResearchElement",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "Common base class for TRSs, TRPs, and TROs.",
+            "rdfs:label": "TrustedResearchElement"
+        },
+        {
+            "@id": "trov:hasFingerprint",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a composition to its fingerprint.",
+            "rdfs:domain": {
+                "@id": "trov:ArtifactComposition"
+            },
+            "rdfs:label": "hasFingerprint",
+            "rdfs:range": {
+                "@id": "trov:CompositionFingerprint"
+            }
+        },
+        {
+            "@id": "trov:InternetAccessRecording",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "All network accesses during the TRP were recorded.",
+            "rdfs:label": "InternetAccessRecording",
+            "rdfs:subClassOf": {
+                "@id": "trov:TRPAttribute"
+            }
+        },
+        {
+            "@id": "trov:hasPerformance",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to a TRP it describes.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "hasPerformance",
+            "rdfs:range": {
+                "@id": "trov:TrustedResearchPerformance"
+            }
+        },
+        {
+            "@id": "trov:hasCapability",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRS to a capability it declares.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchSystem"
+            },
+            "rdfs:label": "hasCapability",
+            "rdfs:range": {
+                "@id": "trov:TRSCapability"
+            }
+        },
+        {
+            "@id": "trov:TransparentResearchObject",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A set of research artifacts produced by one or more TRPs and signed by the assembling TRS.",
+            "rdfs:label": "TransparentResearchObject",
+            "rdfs:subClassOf": {
+                "@id": "trov:TrustedResearchElement"
+            }
+        },
+        {
+            "@id": "trov:hasPerformanceAttribute",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRP to a transparency attribute claimed for it.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchPerformance"
+            },
+            "rdfs:label": "hasPerformanceAttribute",
+            "rdfs:range": {
+                "@id": "trov:TRPAttribute"
+            }
+        },
+        {
+            "@id": "trov:TrustedResearchSystem",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A system that performs TRPs and assembles TROs.",
+            "rdfs:label": "TrustedResearchSystem",
+            "rdfs:subClassOf": {
+                "@id": "trov:TrustedResearchElement"
+            }
+        },
+        {
+            "@id": "trov:wasAssembledBy",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to the TRS that produced and signed it.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "wasAssembledBy",
+            "rdfs:range": {
+                "@id": "trov:TrustedResearchSystem"
+            }
+        },
+        {
+            "@id": "trov:warrantedBy",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a transparency attribute to the capability or attribute that warrants it.",
+            "rdfs:label": "warrantedBy"
+        },
+        {
+            "@id": "trov:publicKey",
+            "@type": "rdf:Property",
+            "rdfs:comment": "The TRS's public key. Required for GPG signing. Not needed for X.509/CMS.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchSystem"
+            },
+            "rdfs:label": "publicKey",
+            "rdfs:range": {
+                "@id": "rdfs:Literal"
+            }
+        },
+        {
+            "@id": "trov:artifact",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a location to the artifact placed there.",
+            "rdfs:domain": {
+                "@id": "trov:ArtifactLocation"
+            },
+            "rdfs:label": "artifact",
+            "rdfs:range": {
+                "@id": "trov:ResearchArtifact"
+            }
+        },
+        {
+            "@id": "trov:TRSCapability",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "A declared ability of a TRS to enforce a specific transparency condition.",
+            "rdfs:label": "TRSCapability",
+            "rdfs:subClassOf": {
+                "@id": "trov:TRSAttribute"
+            }
+        },
+        {
+            "@id": "trov:TRSAttribute",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "An attribute of a TRS.",
+            "rdfs:label": "TRSAttribute",
+            "rdfs:subClassOf": {
+                "@id": "trov:TREAttribute"
+            }
+        },
+        {
+            "@id": "trov:hasComposition",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to the composition of artifacts it describes.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "hasComposition",
+            "rdfs:range": {
+                "@id": "trov:ArtifactComposition"
+            }
+        },
+        {
+            "@id": "trov:IncludesAllInputData",
+            "@type": "rdfs:Class",
+            "rdfs:comment": "The TRO composition includes all input data employed in creating the TRO.",
+            "rdfs:label": "IncludesAllInputData",
+            "rdfs:subClassOf": {
+                "@id": "trov:TROAttribute"
+            }
+        },
+        {
+            "@id": "trov:customTerm",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Declares a custom term that extends a TROV class.",
+            "rdfs:domain": {
+                "@id": "trov:TrustedResearchSystem"
+            },
+            "rdfs:label": "customTerm"
+        },
+        {
+            "@id": "trov:wasTimestampedBy",
+            "@type": "rdf:Property",
+            "rdfs:comment": "Links a TRO to a TSA that timestamped the TRS signature.",
+            "rdfs:domain": {
+                "@id": "trov:TransparentResearchObject"
+            },
+            "rdfs:label": "wasTimestampedBy",
+            "rdfs:range": {
+                "@id": "trov:TimeStampingAuthority"
+            }
         }
     ]
 }
