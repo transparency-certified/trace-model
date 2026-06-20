@@ -1,0 +1,11 @@
+
+# Install trace-model's own package from the source tree COPY'd into the image.
+# Provides the tro_fingerprint_state and merge_states console scripts the demos
+# invoke. (trace-model is a "final" repro -- not required by other repros -- so
+# it always installs from its own source; no source-vs-published switch needed.)
+sudo pip install /repro
+
+# Demo-only dependencies not provided by the required modules or geist-p[rdflib]:
+#   rdfvr -> demo 03-trace-explorations/05-validate-tro-declaration (CLI tool)
+#   pyld  -> demo 03-trace-explorations/06-json2jsonld (`from pyld import jsonld`)
+sudo pip install 'rdfvr==0.3.0' pyld
