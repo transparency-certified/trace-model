@@ -28,14 +28,14 @@
         SELECT ?tro_creator ?tro_date ?tro_name (STR(?tro) AS ?tro_id) ?tro_descr (COUNT(DISTINCT ?artifact) AS ?num_of_artifacts) (COUNT(DISTINCT ?arrangement) AS ?num_of_arrs) (COUNT(DISTINCT ?trp) AS ?num_of_trps)
         WHERE {
             ?tro            rdf:type    trov:TransparentResearchObject .
-            ?tro            <schema:creator>    ?tro_creator .
-            ?tro            <schema:dateCreated>    ?tro_date .
+            ?tro            schema:creator    ?tro_creator .
+            ?tro            schema:dateCreated    ?tro_date .
             ?tro            rdfs:label  ?tro_name .
             ?tro            rdfs:comment    ?tro_descr .
             ?tro            trov:hasComposition/trov:hasArtifact   ?artifact .
             ?tro            trov:hasArrangement     ?arrangement .
             ?tro            trov:hasPerformance     ?trp .
-        } GROUP BY ?tro
+        } GROUP BY ?tro ?tro_creator ?tro_date ?tro_name ?tro_descr
     {% endquery %}
     {{ query_tro | df2json }}
 {% endtemplate %}
@@ -75,10 +75,10 @@
         WHERE {
             ?trs        rdf:type        trov:TransparentResearchSystem .
             ?trs        trov:hasCapability ?capability .
-            ?trs        <schema:publisher> ?trs_publisher .
+            ?trs        schema:publisher ?trs_publisher .
             ?trs        rdfs:label      ?trs_name .
             ?trs        rdfs:comment    ?trs_descr
-        } GROUP BY ?trs
+        } GROUP BY ?trs ?trs_publisher ?trs_name ?trs_descr
     {% endquery %}
     {{ query_trs | df2json }}
 {% endtemplate %}
